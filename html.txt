@@ -1,0 +1,38 @@
+"X.html" :
+
+- accueil.html : correspond à la page d'acceuil (version visiteur et version abonné) 
+- connexion.html : correspond à la page d'inscription
+- creation.html : correspond à la création de compte 
+- compte.html : correspond à la page de gestion du compte
+- compte_visite.html : correspond à la page que les abonné voit
+
+lien entre pages : 
+
+- accueil.html -> connexion.html 
+               -> compte.html
+               -> compte_visite.html (si connexion) 
+               -> accueil.html
+               
+- connexion.html -> creation.html
+                 -> accueil.html 
+
+- comtpe.html -> compte_visite.html
+              -> accueil.html
+
+- creation.html -> acceuil.html
+
+- compte_visite.html -> compte.html
+                     -> compte_visite.html
+                     -> accueil.html 
+
+
+-> REMARQUE : 
+ 
+Deux versions possibles : 1) page de connexion suivi de la page d'accueil donc pas besoin de gérer la partie "est-ce que tu es connecté ?/ Est-ce un visiteur ou un connecté ?" 
+                          2) page d'acceuil version visiteur suivi de connexion : gestion de si le visiteur clique sur un compte alors amène à la page de connexion + affiche message d'erreur
+                          
+Abonné ou non : on part du principe que la personne a déjà un compte 
+                si on n'est pas abonné à un compte alors on ne voit pas les photos et un message du type "Abonnez vous si vous voulez voir les photos de ce compte" sinon affichage des photos
+
+
+                

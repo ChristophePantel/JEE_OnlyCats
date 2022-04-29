@@ -1,5 +1,7 @@
 package fr.n7.onlycats;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,5 +19,9 @@ public class Message {
 	Profil expediteur;
 	
 	String contenuMessage;
+	
+	Collection<Chat> chats;
+	
+	Collection<Profil> abonnes;
 	
 }

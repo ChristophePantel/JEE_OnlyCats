@@ -1,5 +1,7 @@
 package fr.n7.onlycats;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,5 +18,6 @@ public class FilDiscussion {
 	
 	// Composé d'une liste de message ou d'une liste de fil de discussion avec une association
 	// avec l'utilisateur qui a écrit le message.
+	Collection <Message> filDiscussion;
 	
 }

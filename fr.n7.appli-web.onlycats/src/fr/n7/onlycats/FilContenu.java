@@ -1,5 +1,7 @@
 package fr.n7.onlycats;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +14,8 @@ public class FilContenu {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idFilPosts;	
+	int idFilContenu;	
+	
+	Collection<Contenu> contenu;
 
 }

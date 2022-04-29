@@ -8,16 +8,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public abstract class Post {
-
+public class FilContenu {
+	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idPost;
-	
-	String contenuPost;
-	
-	int nombreLikes;
-	
-	// Contenu multimédia
-	
+	int idFilPosts;	
+
 }

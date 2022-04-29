@@ -3,6 +3,8 @@
  */
 package fr.n7.onlycats;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,9 +26,10 @@ public class Chat {
 	String descriptionChat;
 	
 	// Tags : Liste de tags
+	Collection<Tag> tags;
 	
 	// Contenu multimédia
 
-	FilPosts filPostsChat;
+	FilContenu filPostsChat;
 	
 }

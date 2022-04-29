@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.n7.onlycats;
 
 import javax.persistence.Entity;
@@ -10,23 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-/**
- * @author cpantel
- *
- */
 @Entity
-public class Chat {
-	
+public abstract class Post {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idChat;
+	int idPost;
 	
-	String descriptionChat;
+	String contenuPost;
 	
-	// Tags : Liste de tags
+	int nombreLikes;
 	
 	// Contenu multimédia
-
-	FilPosts filPostsChat;
 	
 }

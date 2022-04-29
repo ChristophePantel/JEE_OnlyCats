@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.n7.onlycats;
 
 import javax.persistence.Entity;
@@ -10,23 +7,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-/**
- * @author cpantel
- *
- */
 @Entity
-public class Chat {
-	
+public class FilDiscussion {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idChat;
+	int idFilDiscussion;
 	
-	String descriptionChat;
-	
-	// Tags : Liste de tags
-	
-	// Contenu multimédia
-
-	FilPosts filPostsChat;
+	// Composé d'une liste de message ou d'une liste de fil de discussion avec une association
+	// avec l'utilisateur qui a écrit le message.
 	
 }

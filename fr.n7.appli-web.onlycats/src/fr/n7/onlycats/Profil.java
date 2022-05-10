@@ -16,9 +16,37 @@ public abstract class Profil {
 	
 	String prenom;
 	
+	public Profil() {
+		
+	}
+	
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getNomUtilisateur() {
+		return nomUtilisateur;
+	}
+
+	public void setNomUtilisateur(String nomUtilisateur) {
+		this.nomUtilisateur = nomUtilisateur;
+	}
+
 	String nom;
 	
-	String nomUtilistaeur;
+	String nomUtilisateur;
 	
 	String adresseMail;
 	

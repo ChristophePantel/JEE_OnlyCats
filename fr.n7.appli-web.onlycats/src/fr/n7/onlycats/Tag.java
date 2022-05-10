@@ -16,5 +16,13 @@ public class Tag {
 	
 	@Id	
 	String Tag;
+
+	public String getTag() {
+		return Tag;
+	}
+
+	public void setTag(String tag) {
+		Tag = tag;
+	}
 	
 }

@@ -20,6 +20,22 @@ public class Message {
 	
 	String contenuMessage;
 	
+	public Profil getExpediteur() {
+		return expediteur;
+	}
+
+	public void setExpediteur(Profil expediteur) {
+		this.expediteur = expediteur;
+	}
+
+	public String getContenuMessage() {
+		return contenuMessage;
+	}
+
+	public void setContenuMessage(String contenuMessage) {
+		this.contenuMessage = contenuMessage;
+	}
+
 	Collection<Chat> chats;
 	
 	Collection<Profil> abonnes;

@@ -55,7 +55,7 @@ public class FacadeImpl implements RemoteFacade {
 		if (nature) {
 			profil = new ProfilCreateur();
 		} else {
-			profil = new ProfilUtilisateur();
+// TODO			profil = new ProfilUtilisateur();
 		}
 		profil.setPrenom(prenom);
 		profil.setNom(nom);

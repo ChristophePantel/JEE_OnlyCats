@@ -8,8 +8,10 @@ import java.util.Collection;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
 /**
  * @author cpantel
@@ -142,18 +144,24 @@ public class RESTFacadeImpl implements RemoteFacade {
 	}
 
 	@Override
+	@POST
+	@Produces("text/json")
 	public int utilisateurParPseudo(String pseudo, String motDePasse) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
+	@GET
+	@Produces("text/json")
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	@GET
+	@Produces("text/json")
 	public Collection<Chat> chatParCreateur(int idCreateur) {
 		// TODO Auto-generated method stub
 		return null;

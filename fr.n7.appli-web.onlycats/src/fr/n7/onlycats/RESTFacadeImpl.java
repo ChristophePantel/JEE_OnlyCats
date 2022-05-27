@@ -141,6 +141,24 @@ public class RESTFacadeImpl implements RemoteFacade {
 		}
 	}
 
+	@Override
+	public int utilisateurParPseudo(String pseudo, String motDePasse) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Collection<Chat> chatParUtilisateur(int idUtilisateur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<Chat> chatParCreateur(int idCreateur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

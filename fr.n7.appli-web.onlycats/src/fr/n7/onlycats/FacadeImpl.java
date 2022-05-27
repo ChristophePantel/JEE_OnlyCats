@@ -86,13 +86,13 @@ public class FacadeImpl implements RemoteFacade {
 	}
 
 	@Override
-	public Collection<Chat> obtenirChatsPagePrincipal() {
+	public Collection<Chat> obtenirChatsProfil() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Chat> obtenirChatsProfil() {
+	public Collection<Chat> obtenirPostsPagePrincipal() {
 		// TODO Auto-generated method stub
 		return null;
 	}

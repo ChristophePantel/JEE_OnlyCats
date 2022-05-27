@@ -16,6 +16,22 @@ public abstract class Profil {
 	
 	String prenom;
 	
+	String nom;
+	
+	String nomUtilisateur;
+	
+	String adresseMail;
+	
+	String motDePasse;
+	
+	String description;
+	
+	// Liste d'abonnements
+	Collection<Chat> abonnements;
+	
+	// Fil de discussion
+	FilDiscussion filDiscussionProfil;
+	
 	public Profil() {
 		
 	}
@@ -44,20 +60,5 @@ public abstract class Profil {
 		this.nomUtilisateur = nomUtilisateur;
 	}
 
-	String nom;
-	
-	String nomUtilisateur;
-	
-	String adresseMail;
-	
-	String motDePasse;
-	
-	String description;
-	
-	// Liste d'abonnements
-	Collection<Chat> abonnements;
-	
-	// Fil de discussion
-	FilDiscussion filDiscussionProfil;
 	
 }

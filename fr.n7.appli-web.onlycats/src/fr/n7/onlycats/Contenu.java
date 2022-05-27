@@ -20,4 +20,5 @@ public abstract class Contenu {
 	
 	// Contenu multimédia
 	
+	
 }

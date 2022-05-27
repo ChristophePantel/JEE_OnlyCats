@@ -24,6 +24,16 @@ public class Chat {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	int identificateur;
 	
+	String nom;
+	
+	String descriptionChat;
+	
+	// Tags : Liste de tags
+	Collection<Tag> tags;
+	
+	// Contenu multimédia
+	FilContenu filPostsChat;
+	
 	public Chat() {
 		this.tags = new HashSet<Tag>();
 	}
@@ -44,19 +54,8 @@ public class Chat {
 		this.nom = nom;
 	}
 
-	String nom;
-	
-	String descriptionChat;
-	
-	// Tags : Liste de tags
-	Collection<Tag> tags;
-	
-	// Contenu multimédia
-
 	public Collection<Tag> getTags() {
 		return this.tags;
 	}
-
-	FilContenu filPostsChat;
 	
 }

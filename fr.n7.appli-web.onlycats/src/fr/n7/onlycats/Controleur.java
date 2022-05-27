@@ -27,6 +27,15 @@ public class Controleur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String operation = request.getParameter("operation");
+		if (operation == null) {
+			System.err.println("No operation parameter was transmitted to the servlet.");
+		} else {
+			switch(operation) {
+			case "associer":
+				break;
+			}
+		}
 	}
 
 	/**

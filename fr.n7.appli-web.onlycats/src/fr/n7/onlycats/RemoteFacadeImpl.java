@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * Objects are refered by their identifiers (integer value).
  */
 @Singleton
-public class FacadeImpl implements RemoteFacade {
+public class RemoteFacadeImpl implements RemoteFacade {
 
 	// Map<Integer,Profil> utilisateurs;
 	// Map<Integer, Chat> chats;
@@ -25,7 +25,7 @@ public class FacadeImpl implements RemoteFacade {
     /**
      * Default constructor. 
      */
-    public FacadeImpl() {
+    public RemoteFacadeImpl() {
         // TODO Auto-generated constructor stub
 		/// this.utilisateurs = new HashMap<Integer,Personne>();
 		// this.adresses = new HashMap<Integer, Adresse>();
@@ -53,13 +53,13 @@ public class FacadeImpl implements RemoteFacade {
 	public void ajoutProfil(String prenom, String nom, String nomUtilisateur, boolean nature) {
 		Profil profil = null;
 		if (nature) {
-			profil = new ProfilCreateur();
+			profil = new Createur();
 		} else {
 // TODO			profil = new ProfilUtilisateur();
 		}
 		profil.setPrenom(prenom);
 		profil.setNom(nom);
-		profil.setNomUtilisateur(nomUtilisateur);
+		profil.setPseudo(nomUtilisateur);
 		entityManager.persist(profil);
 		
 	}

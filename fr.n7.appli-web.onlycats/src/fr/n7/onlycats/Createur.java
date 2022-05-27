@@ -8,14 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class ProfilCreateur extends Profil {
+public class Createur extends Profil {
 	
-	// List des chats
+	// Liste des chats
+	@OneToMany
 	Collection<Chat> chats;
 
-	// Distinction d'un profil payant ou non
-	boolean deluxe;
+	public Collection<Chat> getChats() {
+		return chats;
+	}
+
+	public void setChats(Collection<Chat> chats) {
+		this.chats = chats;
+	}
 	
 }

@@ -1,7 +1,14 @@
+/**
+ * 
+ */
 package fr.n7.onlycats;
 
-public class Image extends Contenu {
-	
+/**
+ * @author cpantel
+ *
+ */
+public class Video extends Contenu {
+
 	String url;
 
 	public String getUrl() {

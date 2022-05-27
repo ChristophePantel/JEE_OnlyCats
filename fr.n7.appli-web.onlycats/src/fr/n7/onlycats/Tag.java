@@ -15,14 +15,14 @@ public class Tag {
 	int idTag;
 	
 	@Id	
-	String Tag;
+	String nom;
 
-	public String getTag() {
-		return Tag;
+	public String getNom() {
+		return this.nom;
 	}
 
-	public void setTag(String tag) {
-		Tag = tag;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	
 }

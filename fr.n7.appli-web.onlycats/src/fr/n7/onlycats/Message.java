@@ -18,7 +18,7 @@ public class Message {
 	
 	Profil expediteur;
 	
-	String contenuMessage;
+	String texte;
 	
 	public Profil getExpediteur() {
 		return expediteur;
@@ -28,12 +28,12 @@ public class Message {
 		this.expediteur = expediteur;
 	}
 
-	public String getContenuMessage() {
-		return contenuMessage;
+	public String getTexte() {
+		return texte;
 	}
 
-	public void setContenuMessage(String contenuMessage) {
-		this.contenuMessage = contenuMessage;
+	public void setTexte(String texte) {
+		this.texte = texte;
 	}
 
 	Collection<Chat> chats;

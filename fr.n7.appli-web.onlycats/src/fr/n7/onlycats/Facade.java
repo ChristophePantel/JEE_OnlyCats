@@ -2,43 +2,81 @@ package fr.n7.onlycats;
 
 import java.util.Collection;
 
-
-//@Path("/")
 public interface Facade {
-	/*@POST
-	 * @Path(/addCat)*/
-	public void ajoutChat(String nom);
 	
-	/*@POST
-	 * @Path(/addMessage)*/
-	public void ajoutMessage(String texte, int idExpediteur, int idFilDiscussion);
+	/**
+	 * ajout d'un profil pour un utilisateur
+	 * @param prenom : prénom de l'utilisateur
+	 * @param nom : nom de l'utilisateur
+	 * @param pseudo : pseudonyme de l'utilisateur
+	 * @param adresse : adresse électronique de l'utilisateur
+	 * @param motDePasse : mot de passe de l'utilisateur
+	 * @param nature : nature de l'utilisateur (créateur ou client)
+	 */
+	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motDePasse, boolean nature);
 	
-	/*@POST
-	 * @Path(/addProfil)*/
-	public void ajoutProfil(String prenom, String nom, String nomUtilisateur, boolean nature);
+	/**
+	 * Ajout d'un tag par utilisateur
+	 * @param tag : tag ajouté
+	 */
+	public void ajouterTag(String tag);
 	
-	/*@POST
-	 * @Path(/addTag)*/
-	public void ajoutTag(String tag, int idChat);
+	/**
+	 * ajout d'un chat par un créateur
+	 * @param nom : le nom du chat
+	 * @param idUtilisateur : l'identifiant du créateur
+	 */
+	public void ajouterChat(String nom, int idUtilisateur);
 	
-	/*@POST
-	 * @Path(/addText)*/
-	public void ajoutContenuTexte(String texte, int idFilContenu);
+	/**
+	 * Ajout d'un tag sur un chat par un utilisateur
+	 * @param idChat : l'identifiant du chat
+	 * @param idUtilisateur : l'identifiant de l'utilisateur qui ajoute le tag
+	 * @param idTag : l'identifiant du tag ajouté
+	 */
+	public void taggerChat(int idChat, int idUtilisateur, int idTag);
 	
-	/*@POST
-	 * @Path(/addImage)*/
-	public void ajoutContenuImage(int idImage, int idFilContenu);
+	/**
+	 * Ajout d'un texte dans la liste des posts concernant un chat par un utilisateur
+	 * @param idChat : l'identifiant du chat
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param texte : le texte posté
+	 */
+	public void posterTexte(int idChat, int idUtilisateur, String texte);
+	
+	/**
+	 * Ajout d'une image dans la liste des posts concernant un chat par un utilisateur
+	 * @param idChat : l'identifiant du chat
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param url : l'url de l'image postée
+	 */
+	public void posterImage(int idChat, int idUtilisateur, String url);
+	
+	/**
+	 * Ajout d'une vidéo dans la liste des posts concernant un chat par un utilisateur
+	 * @param idChat : l'identifiant du chat
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param url : l'url de la vidéo postée
+	 */
+	public void posterVideo(int idChat, int idUtilisateur, String url);
+	
+	/**
+	 * Abonnement d'un utilisateur à un chat
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param idChat : l'identifiant du chat
+	 */
+	public void abonnerChat( int idUtilisateur, int idChat);
+	
+	/**
+	 * Ajout d'un texte dans la liste des posts concernant un chat par un utilisateur
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param idPost : l'identifiant du post auquel le message est associé
+	 * @param texte : le texte posté
+	 */
+	public void posterMessage(int idUtilisateur, int idPost, String texte);
 	
 	/* Services qui fournissent les données nécessaires pour une vue particulière */
 	
-	/* Vue page principale */
-	/*@Get
-	 * @Path(/listCatPagePrincipal)*/
-	public Collection<Chat> obtenirPostsPagePrincipal();
-	// Lister les posts de tous les abonnements du profil
 	
-	
-	/* Vue page abonné */
-	public Collection<Chat> obtenirChatsProfil();
 	
 }

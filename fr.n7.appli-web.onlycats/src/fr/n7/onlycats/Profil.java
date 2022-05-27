@@ -18,14 +18,28 @@ public abstract class Profil {
 	
 	String nom;
 	
-	String nomUtilisateur;
+	String pseudo;
 	
-	String adresseMail;
+	String adresse;
 	
 	String motDePasse;
 	
-	String description;
-	
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
 	// Liste d'abonnements
 	Collection<Chat> abonnements;
 	
@@ -52,13 +66,12 @@ public abstract class Profil {
 		this.nom = nom;
 	}
 
-	public String getNomUtilisateur() {
-		return nomUtilisateur;
+	public String getPseudo() {
+		return pseudo;
 	}
 
-	public void setNomUtilisateur(String nomUtilisateur) {
-		this.nomUtilisateur = nomUtilisateur;
+	public void setPseudo(String nomUtilisateur) {
+		this.pseudo = nomUtilisateur;
 	}
-
 	
 }

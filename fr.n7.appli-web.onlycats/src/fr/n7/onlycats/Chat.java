@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * @author cpantel
@@ -21,21 +22,44 @@ import javax.persistence.ManyToOne;
 public class Chat {
 	
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int identificateur;
 	
 	String nom;
 	
-	String descriptionChat;
+	String description;
 	
 	// Tags : Liste de tags
+	@ManyToMany
 	Collection<Tag> tags;
 	
-	// Contenu multimédia
-	FilContenu filPostsChat;
+	@OneToMany
+	Collection<Contenu> fil;
+	
+	public Collection<Contenu> getFil() {
+		return fil;
+	}
+
+	public void setFil(Collection<Contenu> fil) {
+		this.fil = fil;
+	}
+
+	@ManyToMany
+	Collection<Utilisateur> abonnes;
+	
+	public Collection<Utilisateur> getAbonnes() {
+		return abonnes;
+	}
+
+	public void setAbonnes(Collection<Utilisateur> abonnes) {
+		this.abonnes = abonnes;
+	}
+
+	public void setTags(Collection<Tag> tags) {
+		this.tags = tags;
+	}
 	
 	public Chat() {
-		this.tags = new HashSet<Tag>();
 	}
 	
 	public int getIdentificateur() {

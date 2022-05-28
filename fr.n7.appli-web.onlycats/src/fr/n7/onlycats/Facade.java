@@ -2,6 +2,12 @@ package fr.n7.onlycats;
 
 import java.util.Collection;
 
+/**
+ * @author cpantel
+ * 
+ * Services fournis par le modèle de l'application OnlyCats
+ */
+
 public interface Facade {
 	
 	/**
@@ -77,14 +83,36 @@ public interface Facade {
 	
 	/* Services qui fournissent les données nécessaires pour une vue particulière */
 	
+	/**
+	 * @return Ensemble des utilisateurs abonnés sur le site
+	 */
 	public Collection<Utilisateur> listerUtilisateurs();
 	
+	/**
+	 * @return Ensemble des créateurs abonnés sur le site
+	 */
 	public Collection<Createur> listerCreateurs();
 	
+	/**
+	 * Transmet l'identifiant d'un utilisateur et partir de son pseudo et son mot de passe.
+	 * @param pseudo : Pseudo enregistré pour l'utilisateur
+	 * @param motDePasse : Mot de passe enregistré pour l'utilisateur
+	 * @return : Identifiant de l'utilisateur
+	 */
 	public int utilisateurParPseudo(String pseudo, String motDePasse);
 	
+	/**
+	 * Transmet l'ensemble des chats auxquels est abonné un utilisateur
+	 * @param idUtilisateur
+	 * @return
+	 */
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur);
 	
+	/**
+	 * Transmet l'ensemble des chats d'un créateur
+	 * @param idCreateur
+	 * @return
+	 */
 	public Collection<Chat> chatParCreateur(int idCreateur);
 	
 }

@@ -11,10 +11,9 @@ import javax.persistence.ManyToOne;
 public class Tag {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idTag;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	int identificateur;
 	
-	@Id	
 	String nom;
 
 	public String getNom() {

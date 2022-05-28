@@ -15,7 +15,7 @@ public abstract class Contenu {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	int idContenu;
+	int identificateur;
 	
 	@ManyToOne
 	Chat sujet;

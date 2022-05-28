@@ -159,7 +159,9 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Produces("text/json")
 	public int utilisateurParPseudo(String pseudo, String motDePasse) {
-		TypedQuery<Profil> requete = entityManager.createQuery("select p from Profil p where pseudo = " + pseudo + " and motDePasse = " + motDePasse, Profil.class);
+		TypedQuery<Profil> requete = entityManager.createQuery(
+				"select p from Profil p where (pseudo = " + pseudo + ") and (motDePasse = " + motDePasse + ")",
+				Profil.class);
 		Profil resultat = requete.getSingleResult();
 		return resultat.getIdentificateur();
 	}

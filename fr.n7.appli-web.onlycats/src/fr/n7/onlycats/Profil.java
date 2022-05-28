@@ -47,9 +47,6 @@ public abstract class Profil {
 	// Liste d'abonnements
 	Collection<Chat> abonnements;
 	
-	// Fil de discussion
-	FilDiscussion filDiscussionProfil;
-	
 	public Profil() {
 		
 	}

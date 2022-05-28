@@ -11,9 +11,13 @@ import javax.persistence.Id;
 public abstract class Profil {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idProfil;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	int identificateur;
 	
+	public int getIdentificateur() {
+		return identificateur;
+	}
+
 	String prenom;
 	
 	String nom;

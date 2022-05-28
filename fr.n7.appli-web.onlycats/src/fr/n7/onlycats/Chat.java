@@ -33,7 +33,7 @@ public class Chat {
 	@ManyToMany
 	Collection<Tag> tags;
 	
-	@OneToMany
+	@OneToMany(mappedBy="sujet")
 	Collection<Contenu> fil;
 	
 	public Collection<Contenu> getFil() {

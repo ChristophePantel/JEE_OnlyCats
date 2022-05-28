@@ -8,6 +8,8 @@ import java.util.Collection;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,6 +29,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("ajouterProfil")
 	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
 			boolean nature) {
@@ -46,6 +49,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("ajouterTag")
 	public void ajouterTag(String nom) {
 		Tag tag = new Tag();
@@ -55,6 +59,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("ajouterChat")
 	public void ajouterChat(String nom, int idUtilisateur) {
 		Createur createur = entityManager.find(Createur.class, idUtilisateur);
@@ -66,6 +71,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("taggerChat")
 	public void taggerChat(int idChat, int idUtilisateur, int idTag) {
 		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
@@ -78,6 +84,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("posterTexte")
 	public void posterTexte(int idChat, int idCreateur, String texte) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
@@ -92,6 +99,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("posterImage")
 	public void posterImage(int idChat, int idCreateur, String url) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
@@ -106,6 +114,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("posterVideo")
 	public void posterVideo(int idChat, int idCreateur, String url) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
@@ -120,6 +129,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("abonnerChat")
 	public void abonnerChat(int idUtilisateur, int idChat) {
 		Chat chat = entityManager.find(Chat.class, idChat);
@@ -129,6 +139,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Path("posterMessage")
 	public void posterMessage(int idUtilisateur, int idPost, String texte) {
 		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
@@ -145,26 +156,30 @@ public class RESTFacadeImpl implements RemoteFacade {
 
 	@Override
 	@POST
+	@Consumes("text/json")
 	@Produces("text/json")
 	public int utilisateurParPseudo(String pseudo, String motDePasse) {
-		// TODO Auto-generated method stub
-		return 0;
+		TypedQuery<Profil> requete = entityManager.createQuery("select p from Profil p where pseudo = " + pseudo + " and motDePasse = " + motDePasse, Profil.class);
+		Profil resultat = requete.getSingleResult();
+		return resultat.getIdentificateur();
 	}
 
 	@Override
 	@GET
+	@Consumes("text/json")
 	@Produces("text/json")
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur) {
-		// TODO Auto-generated method stub
-		return null;
+		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
+		return utilisateur.getAbonnements();
 	}
 
 	@Override
 	@GET
+	@Consumes("text/json")
 	@Produces("text/json")
 	public Collection<Chat> chatParCreateur(int idCreateur) {
-		// TODO Auto-generated method stub
-		return null;
+		Createur createur = entityManager.find(Createur.class, idCreateur);
+		return createur.getChats();
 	}
 
 

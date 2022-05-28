@@ -15,7 +15,7 @@ import javax.persistence.TypedQuery;
  *
  */
 @Singleton
-public class BDFacadeImpl implements Facade {
+public class FacadeBDImpl implements FacadeBD {
 
 	@PersistenceContext(unitName = "OnlyCats")
 	EntityManager entityManager;

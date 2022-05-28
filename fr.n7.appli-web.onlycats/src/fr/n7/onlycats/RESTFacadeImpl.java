@@ -23,7 +23,7 @@ import javax.ws.rs.Produces;
 public class RESTFacadeImpl implements RemoteFacade {
 	
 	@EJB
-	BDFacadeImpl facade;
+	FacadeBD facade;
 
 	@Override
 	@POST

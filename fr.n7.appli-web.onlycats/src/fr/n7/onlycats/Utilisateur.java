@@ -3,12 +3,13 @@ package fr.n7.onlycats;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
 @Entity
 public class Utilisateur extends Profil {
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	Collection<Chat> abonnements;
 
 	public Collection<Chat> getAbonnements() {

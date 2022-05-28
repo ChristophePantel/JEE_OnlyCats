@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,14 +30,16 @@ public class Chat {
 	
 	String description;
 	
-	// Tags : Liste de tags
-	@ManyToMany
+	@ManyToOne(fetch = FetchType.EAGER)
+	Createur proprietaire;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
 	Collection<Tag> tags;
 	
-	@OneToMany(mappedBy="sujet")
+	@OneToMany(mappedBy="sujet", fetch = FetchType.EAGER)
 	Collection<Contenu> fil;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	Collection<Utilisateur> abonnes;
 	
 	public Collection<Contenu> getFil() {

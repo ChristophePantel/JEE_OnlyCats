@@ -184,6 +184,20 @@ public class RESTFacadeImpl implements RemoteFacade {
 		return createur.getChats();
 	}
 
+	@Override
+	@GET
+	@Produces("text/json")
+	public Collection<Utilisateur> listerUtilisateurs() {
+		return entityManager.createQuery("from Utilisateur", Utilisateur.class).getResultList();
+	}
+
+	@Override
+	@GET
+	@Produces("text/json")
+	public Collection<Createur> listerCreateurs() {
+		return entityManager.createQuery("from Createur", Createur.class).getResultList();
+	}
+
 
 
 }

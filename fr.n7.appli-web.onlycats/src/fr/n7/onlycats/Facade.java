@@ -77,6 +77,10 @@ public interface Facade {
 	
 	/* Services qui fournissent les données nécessaires pour une vue particulière */
 	
+	public Collection<Utilisateur> listerUtilisateurs();
+	
+	public Collection<Createur> listerCreateurs();
+	
 	public int utilisateurParPseudo(String pseudo, String motDePasse);
 	
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur);

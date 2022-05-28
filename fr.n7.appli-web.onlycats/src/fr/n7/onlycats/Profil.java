@@ -1,7 +1,5 @@
 package fr.n7.onlycats;
 
-import java.util.Collection;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +12,6 @@ public abstract class Profil {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int identificateur;
 	
-	public int getIdentificateur() {
-		return identificateur;
-	}
-
 	String prenom;
 	
 	String nom;
@@ -27,25 +21,10 @@ public abstract class Profil {
 	String adresse;
 	
 	String motDePasse;
-	
-	public String getAdresse() {
-		return adresse;
-	}
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public int getIdentificateur() {
+		return identificateur;
 	}
-
-	public String getMotDePasse() {
-		return motDePasse;
-	}
-
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
-
-	// Liste d'abonnements
-	Collection<Chat> abonnements;
 	
 	public Profil() {
 		
@@ -73,6 +52,22 @@ public abstract class Profil {
 
 	public void setPseudo(String nomUtilisateur) {
 		this.pseudo = nomUtilisateur;
+	}
+	
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
 	}
 	
 }

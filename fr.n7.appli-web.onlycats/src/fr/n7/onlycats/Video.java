@@ -3,10 +3,14 @@
  */
 package fr.n7.onlycats;
 
+import javax.persistence.Entity;
+
 /**
  * @author cpantel
  *
  */
+
+@Entity
 public class Video extends Contenu {
 
 	String url;

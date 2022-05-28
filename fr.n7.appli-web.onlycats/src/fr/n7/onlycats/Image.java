@@ -1,5 +1,12 @@
 package fr.n7.onlycats;
 
+import javax.persistence.Entity;
+
+/**
+ * @author cpantel
+ *
+ */
+@Entity
 public class Image extends Contenu {
 	
 	String url;

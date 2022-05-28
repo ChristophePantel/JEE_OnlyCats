@@ -20,6 +20,9 @@ public abstract class Contenu {
 	@ManyToOne
 	Chat sujet;
 	
+	@OneToMany
+	Collection<Message> messages;
+	
 	public Chat getSujet() {
 		return sujet;
 	}
@@ -29,9 +32,6 @@ public abstract class Contenu {
 	}
 
 	int likes;
-	
-	@OneToMany
-	Collection<Message> messages;
 
 	public Collection<Message> getMessages() {
 		return messages;

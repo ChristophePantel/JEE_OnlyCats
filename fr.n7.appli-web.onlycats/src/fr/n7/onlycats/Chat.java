@@ -36,6 +36,9 @@ public class Chat {
 	@OneToMany(mappedBy="sujet")
 	Collection<Contenu> fil;
 	
+	@ManyToMany
+	Collection<Utilisateur> abonnes;
+	
 	public Collection<Contenu> getFil() {
 		return fil;
 	}
@@ -43,9 +46,6 @@ public class Chat {
 	public void setFil(Collection<Contenu> fil) {
 		this.fil = fil;
 	}
-
-	@ManyToMany
-	Collection<Utilisateur> abonnes;
 	
 	public Collection<Utilisateur> getAbonnes() {
 		return abonnes;

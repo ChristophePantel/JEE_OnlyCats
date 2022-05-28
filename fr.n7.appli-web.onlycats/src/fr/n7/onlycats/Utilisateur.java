@@ -2,8 +2,10 @@ package fr.n7.onlycats;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+@Entity
 public class Utilisateur extends Profil {
 	
 	@ManyToMany

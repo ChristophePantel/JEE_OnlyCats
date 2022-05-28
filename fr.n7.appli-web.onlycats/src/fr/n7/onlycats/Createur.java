@@ -10,6 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+/**
+ * @author cpantel
+ *
+ */
 @Entity
 public class Createur extends Profil {
 	

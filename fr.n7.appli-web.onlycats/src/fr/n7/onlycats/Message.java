@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+/**
+ * @author cpantel
+ *
+ */
 @Entity
 public class Message {
 
@@ -16,6 +20,7 @@ public class Message {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	int idFilDiscussion;
 	
+	@ManyToOne
 	Profil expediteur;
 	
 	String texte;
@@ -35,9 +40,5 @@ public class Message {
 	public void setTexte(String texte) {
 		this.texte = texte;
 	}
-
-	Collection<Chat> chats;
-	
-	Collection<Profil> abonnes;
 	
 }

@@ -5,10 +5,8 @@ package fr.n7.onlycats;
 
 import java.util.Collection;
 
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,8 +22,8 @@ import javax.ws.rs.Produces;
 @Path("/")
 public class RESTFacadeImpl implements RemoteFacade {
 	
-	@PersistenceContext(unitName = "OnlyCats")
-	EntityManager entityManager;
+	@EJB
+	BDFacadeImpl facade;
 
 	@Override
 	@POST
@@ -33,18 +31,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Path("ajouterProfil")
 	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
 			boolean nature) {
-		Profil profil = null;
-		if (nature) {
-			profil = new Createur();
-		} else {
-			profil = new Utilisateur();
-		}
-		profil.setPrenom(prenom);
-		profil.setNom(nom);
-		profil.setPseudo(pseudo);
-		profil.setAdresse(adresse);
-		profil.setMotDePasse(motPasse);
-		entityManager.persist(profil);
+		facade.ajouterProfil(prenom, nom, pseudo, adresse, motPasse, nature);
 	}
 
 	@Override
@@ -52,9 +39,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("ajouterTag")
 	public void ajouterTag(String nom) {
-		Tag tag = new Tag();
-		tag.setNom(nom);
-		entityManager.persist(tag);
+		facade.ajouterTag(nom);
 	}
 
 	@Override
@@ -62,11 +47,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("ajouterChat")
 	public void ajouterChat(String nom, int idUtilisateur) {
-		Createur createur = entityManager.find(Createur.class, idUtilisateur);
-		Chat chat = new Chat();
-		chat.setNom(nom);
-		entityManager.persist(chat);
-		createur.getChats().add(chat);
+		facade.ajouterChat(nom, idUtilisateur);
 	}
 
 	@Override
@@ -74,12 +55,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("taggerChat")
 	public void taggerChat(int idChat, int idUtilisateur, int idTag) {
-		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		Chat chat = entityManager.find(Chat.class, idChat);
-		Tag tag = entityManager.find(Tag.class, idTag);
-		if (chat.getAbonnes().contains(utilisateur)) {
-			chat.getTags().add(tag);
-		}
+		facade.taggerChat(idChat, idUtilisateur, idTag);
 	}
 
 	@Override
@@ -87,14 +63,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("posterTexte")
 	public void posterTexte(int idChat, int idCreateur, String texte) {
-		Createur createur = entityManager.find(Createur.class, idCreateur);
-		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
-			Texte contenu = new Texte();
-			contenu.setTexte(texte);
-			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
-		}
+		facade.posterTexte(idChat, idCreateur, texte);
 	}
 
 	@Override
@@ -102,14 +71,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("posterImage")
 	public void posterImage(int idChat, int idCreateur, String url) {
-		Createur createur = entityManager.find(Createur.class, idCreateur);
-		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
-			Image contenu = new Image();
-			contenu.setUrl(url);
-			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
-		}
+		facade.posterImage(idChat, idCreateur, url);
 	}
 
 	@Override
@@ -117,14 +79,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("posterVideo")
 	public void posterVideo(int idChat, int idCreateur, String url) {
-		Createur createur = entityManager.find(Createur.class, idCreateur);
-		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
-			Video contenu = new Video();
-			contenu.setUrl(url);
-			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
-		}
+		facade.posterVideo(idChat, idCreateur, url);
 	}
 
 	@Override
@@ -132,9 +87,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("abonnerChat")
 	public void abonnerChat(int idUtilisateur, int idChat) {
-		Chat chat = entityManager.find(Chat.class, idChat);
-		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		chat.getAbonnes().add(utilisateur);
+		facade.abonnerChat(idUtilisateur, idChat);
 	}
 
 	@Override
@@ -142,16 +95,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Path("posterMessage")
 	public void posterMessage(int idUtilisateur, int idPost, String texte) {
-		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		Contenu contenu = entityManager.find(Contenu.class, idPost);
-		Chat chat = contenu.getSujet();
-		if (chat.getAbonnes().contains(utilisateur)) {
-			Message message = new Message();
-			message.setTexte(texte);
-			message.setExpediteur(utilisateur);
-			entityManager.persist(message);
-			contenu.getMessages().add(message);
-		}
+		facade.posterMessage(idUtilisateur, idPost, texte);
 	}
 
 	@Override
@@ -159,11 +103,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Produces("text/json")
 	public int utilisateurParPseudo(String pseudo, String motDePasse) {
-		TypedQuery<Profil> requete = entityManager.createQuery(
-				"select p from Profil p where (pseudo = " + pseudo + ") and (motDePasse = " + motDePasse + ")",
-				Profil.class);
-		Profil resultat = requete.getSingleResult();
-		return resultat.getIdentificateur();
+		return facade.utilisateurParPseudo(pseudo, motDePasse);
 	}
 
 	@Override
@@ -171,8 +111,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Produces("text/json")
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur) {
-		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		return utilisateur.getAbonnements();
+		return facade.chatParUtilisateur(idUtilisateur);
 	}
 
 	@Override
@@ -180,22 +119,21 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Consumes("text/json")
 	@Produces("text/json")
 	public Collection<Chat> chatParCreateur(int idCreateur) {
-		Createur createur = entityManager.find(Createur.class, idCreateur);
-		return createur.getChats();
+		return facade.chatParCreateur(idCreateur);
 	}
 
 	@Override
 	@GET
 	@Produces("text/json")
 	public Collection<Utilisateur> listerUtilisateurs() {
-		return entityManager.createQuery("from Utilisateur", Utilisateur.class).getResultList();
+		return facade.listerUtilisateurs();
 	}
 
 	@Override
 	@GET
 	@Produces("text/json")
 	public Collection<Createur> listerCreateurs() {
-		return entityManager.createQuery("from Createur", Createur.class).getResultList();
+		return facade.listerCreateurs();
 	}
 
 }

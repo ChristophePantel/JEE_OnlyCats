@@ -198,6 +198,4 @@ public class RESTFacadeImpl implements RemoteFacade {
 		return entityManager.createQuery("from Createur", Createur.class).getResultList();
 	}
 
-
-
 }

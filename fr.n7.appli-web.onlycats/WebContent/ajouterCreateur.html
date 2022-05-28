@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Ajout Profil</title>
+</head>
+<body>
+		<form action="Controleur">
+			<input type="hidden" name="operation" value="ajouterProfil">
+			Prénom : <input type="text" name="prenom"/>
+			<br/>
+			Nom : <input type="text" name="nom"/>
+			<br/>
+			Pseudo : <input type="text" name="pseudo"/>
+			<br/>
+			Mot de passe : <input type="text" name="motDePasse"/>
+			<br/>
+			Adresse : <input type="text" name="adresse"/>
+			<br/>
+			Nom : <input type="text" name="nom"/>
+			<br/>
+			<input type ="radio" name="nature" value="createur">
+			<label for="createur">Créateur</label>
+			<input type ="radio" name="nature" value="utilisateur">
+			<label for="utilisateur">Utilisateur</label>
+			<input type="submit" value="OK">		
+		</form>
+</body>
+</html>

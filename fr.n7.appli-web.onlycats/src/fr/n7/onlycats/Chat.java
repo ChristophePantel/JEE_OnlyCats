@@ -30,6 +30,8 @@ public class Chat {
 	
 	String description;
 	
+	int likes;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	Createur proprietaire;
 	
@@ -83,6 +85,30 @@ public class Chat {
 
 	public Collection<Tag> getTags() {
 		return this.tags;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	public Createur getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(Createur proprietaire) {
+		this.proprietaire = proprietaire;
 	}
 	
 }

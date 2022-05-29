@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -121,12 +122,18 @@ public class FacadeBDImpl implements FacadeBD {
 	}
 
 	@Override
-	public int utilisateurParPseudo(String pseudo, String motDePasse) {
+	public Profil utilisateurParPseudo(String pseudo, String motDePasse) {
+		String query = "select p from Profil p where pseudo = \'" + pseudo + "\' and motDePasse = \'" + motDePasse + "\'";
+		System.err.println(query);
 		TypedQuery<Profil> requete = entityManager.createQuery(
-				"select p from Profil p where (pseudo = " + pseudo + ") and (motDePasse = " + motDePasse + ")",
+				query,
 				Profil.class);
-		Profil resultat = requete.getSingleResult();
-		return resultat.getIdentificateur();
+		try {
+			return requete.getSingleResult();
+		}
+		catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -149,5 +156,32 @@ public class FacadeBDImpl implements FacadeBD {
 	@Override
 	public Collection<Createur> listerCreateurs() {
 		return entityManager.createQuery("from Createur", Createur.class).getResultList();
+	}
+
+	@Override
+	public void ajouterLien(int idUtilisateur, int idContenu) {
+		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
+		Contenu contenu = entityManager.find(Contenu.class, idContenu);
+		if (utilisateur.getAbonnements().contains(contenu.getSujet())) {
+			utilisateur.getLiens().add(contenu);
+		}
+	}
+
+	@Override
+	public void aimerChat(int idUtilisateur, int idChat) {
+		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
+		Chat chat = entityManager.find(Chat.class, idChat);
+		if (utilisateur.getAbonnements().contains(chat)) {
+			chat.setLikes(chat.getLikes()+1);
+		}
+	}
+
+	@Override
+	public void aimerContenu(int idUtilisateur, int idContenu) {
+		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
+		Contenu contenu = entityManager.find(Contenu.class, idContenu);
+		if (utilisateur.getAbonnements().contains(contenu.getSujet())) {
+			contenu.setLikes(contenu.getLikes()+1);
+		}
 	}
 }

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Controleur
@@ -34,15 +35,24 @@ public class Controleur extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Servis par : ").append(request.getContextPath());
 		String operation = request.getParameter("operation");
-		String profil = request.getParameter("profil");
 		if (operation == null) {
 			System.err.println("Le servlet Controleur a reçu une requête sans paramètre operation.");
 		} else {
+			HttpSession session = request.getSession();
 			response.getWriter().append("Service : " + operation);
 			switch(operation) {
-			case "identifier": {
+			case "connecter": {
 				String pseudo = request.getParameter("pseudo");
 				String motDePasse = request.getParameter("motDePasse");
+				Profil profil = facade.utilisateurParPseudo(pseudo, motDePasse);
+				if (profil != null) {
+					session.setAttribute("profil", profil);
+				}
+				request.getRequestDispatcher("index.html").forward(request, response);
+				break;
+			}
+			case "deconnecter": {
+				session.removeAttribute("profil");
 				request.getRequestDispatcher("index.html").forward(request, response);
 				break;
 			}
@@ -76,10 +86,13 @@ public class Controleur extends HttpServlet {
 				break;
 			}
 			case "ajouterChat": {
+				Profil profil = (Profil) session.getAttribute("profil");
 				if (profil == null) {
-					request.getRequestDispatcher("identifier.html").forward(request, response);
+					request.getRequestDispatcher("connecter.html").forward(request, response);
 				} else {
-					
+					String nom = request.getParameter("nom");
+					facade.ajouterChat(nom, profil.getIdentificateur());
+					request.getRequestDispatcher("index.html").forward(request, response);
 				}
 				break;
 			}

@@ -30,9 +30,9 @@ public interface Facade {
 	/**
 	 * ajout d'un chat par un créateur
 	 * @param nom : le nom du chat
-	 * @param idUtilisateur : l'identifiant du créateur
+	 * @param idCreateur : l'identifiant du créateur
 	 */
-	public void ajouterChat(String nom, int idUtilisateur);
+	public void ajouterChat(String nom, int idCreateur);
 	
 	/**
 	 * Ajout d'un tag sur un chat par un utilisateur
@@ -76,10 +76,21 @@ public interface Facade {
 	/**
 	 * Ajout d'un texte dans la liste des posts concernant un chat par un utilisateur
 	 * @param idUtilisateur : l'identifiant de l'utilisateur
-	 * @param idPost : l'identifiant du post auquel le message est associé
+	 * @param idContenu : l'identifiant du post auquel le message est associé
 	 * @param texte : le texte posté
 	 */
-	public void posterMessage(int idUtilisateur, int idPost, String texte);
+	public void posterMessage(int idUtilisateur, int idContenu, String texte);
+	
+	/**
+	 * Ajout d'un lien vers un contenu d'un des chats auquel l'utilisateur est abonné
+	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param idContenu : l'identifiant du contenu
+	 */
+	public void ajouterLien(int idUtilisateur, int idContenu);
+	
+	public void aimerChat(int idUtilisateur, int idChat);
+	
+	public void aimerContenu(int idUtilisateur, int idContenu);
 	
 	/* Services qui fournissent les données nécessaires pour une vue particulière */
 	
@@ -94,12 +105,12 @@ public interface Facade {
 	public Collection<Createur> listerCreateurs();
 	
 	/**
-	 * Transmet l'identifiant d'un utilisateur et partir de son pseudo et son mot de passe.
+	 * Obtient un profil à partir de son pseudo et son mot de passe.
 	 * @param pseudo : Pseudo enregistré pour l'utilisateur
 	 * @param motDePasse : Mot de passe enregistré pour l'utilisateur
-	 * @return : Identifiant de l'utilisateur
+	 * @return : Profil de l'utilisateur
 	 */
-	public int utilisateurParPseudo(String pseudo, String motDePasse);
+	public Profil utilisateurParPseudo(String pseudo, String motDePasse);
 	
 	/**
 	 * Transmet l'ensemble des chats auxquels est abonné un utilisateur

@@ -23,6 +23,8 @@ public abstract class Contenu {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	Collection<Message> messages;
+
+	int likes;
 	
 	public Chat getSujet() {
 		return sujet;
@@ -32,14 +34,20 @@ public abstract class Contenu {
 		this.sujet = sujet;
 	}
 
-	int likes;
-
 	public Collection<Message> getMessages() {
 		return messages;
 	}
 
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;
+	}
+	
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	
 }

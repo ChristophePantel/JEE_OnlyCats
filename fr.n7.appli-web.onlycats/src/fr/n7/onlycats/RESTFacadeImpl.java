@@ -102,7 +102,7 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@POST
 	@Consumes("text/json")
 	@Produces("text/json")
-	public int utilisateurParPseudo(String pseudo, String motDePasse) {
+	public Profil utilisateurParPseudo(String pseudo, String motDePasse) {
 		return facade.utilisateurParPseudo(pseudo, motDePasse);
 	}
 
@@ -134,6 +134,27 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Produces("text/json")
 	public Collection<Createur> listerCreateurs() {
 		return facade.listerCreateurs();
+	}
+
+	@Override
+	@POST
+	@Consumes("text/json")
+	public void ajouterLien(int idUtilisateur, int idContenu) {
+		facade.ajouterLien(idUtilisateur, idContenu);
+	}
+
+	@Override
+	@POST
+	@Consumes("text/json")
+	public void aimerChat(int idUtilisateur, int idChat) {
+		facade.aimerChat(idUtilisateur, idChat);
+	}
+
+	@Override
+	@POST
+	@Consumes("text/json")
+	public void aimerContenu(int idUtilisateur, int idContenu) {
+		facade.aimerContenu(idUtilisateur, idContenu);
 	}
 
 }

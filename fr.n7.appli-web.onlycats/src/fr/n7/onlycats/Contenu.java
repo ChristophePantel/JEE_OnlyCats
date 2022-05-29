@@ -1,6 +1,7 @@
 package fr.n7.onlycats;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +24,11 @@ public abstract class Contenu {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	Collection<Message> messages;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	Collection<Tag> tags;
+	
+	Date date;
 
 	int likes;
 	

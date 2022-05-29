@@ -30,9 +30,11 @@ public interface Facade {
 	/**
 	 * ajout d'un chat par un créateur
 	 * @param nom : le nom du chat
+	 * @param description :
+	 * @param prix :
 	 * @param idCreateur : l'identifiant du créateur
 	 */
-	public void ajouterChat(String nom, int idCreateur);
+	public void ajouterChat(String nom, String description, int prix, int idCreateur);
 	
 	/**
 	 * Ajout d'un tag sur un chat par un utilisateur

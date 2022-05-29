@@ -91,7 +91,9 @@ public class Controleur extends HttpServlet {
 					request.getRequestDispatcher("connecter.html").forward(request, response);
 				} else {
 					String nom = request.getParameter("nom");
-					facade.ajouterChat(nom, profil.getIdentificateur());
+					String description = request.getParameter("description");
+					int prix = Integer.parseInt(request.getParameter("prix"));
+					facade.ajouterChat(nom, description, prix, profil.getIdentificateur());
 					request.getRequestDispatcher("index.html").forward(request, response);
 				}
 				break;

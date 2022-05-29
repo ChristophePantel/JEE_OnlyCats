@@ -3,6 +3,7 @@
  */
 package fr.n7.onlycats;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.Singleton;
@@ -46,10 +47,12 @@ public class FacadeBDImpl implements FacadeBD {
 	}
 
 	@Override
-	public void ajouterChat(String nom, int idUtilisateur) {
-		Createur createur = entityManager.find(Createur.class, idUtilisateur);
+	public void ajouterChat(String nom, String description, int prix, int idCreateur) {
+		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = new Chat();
 		chat.setNom(nom);
+		chat.setDescription(description);
+		chat.setPrix(prix);
 		entityManager.persist(chat);
 		createur.getChats().add(chat);
 	}
@@ -139,7 +142,11 @@ public class FacadeBDImpl implements FacadeBD {
 	@Override
 	public Collection<Chat> chatParUtilisateur(int idUtilisateur) {
 		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		return utilisateur.getAbonnements();
+		Collection<Chat> resultat = new ArrayList<Chat>();
+		for (Abonnement abonnement : utilisateur.getAbonnements()) {
+			resultat.add(abonnement.getChat());
+		}
+		return resultat;
 	}
 
 	@Override

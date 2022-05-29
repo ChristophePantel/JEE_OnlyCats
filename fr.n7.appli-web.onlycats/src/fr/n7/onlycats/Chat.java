@@ -31,6 +31,8 @@ public class Chat {
 	String description;
 	
 	int likes;
+	
+	int prix;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	Createur proprietaire;
@@ -41,28 +43,8 @@ public class Chat {
 	@OneToMany(mappedBy="sujet", fetch = FetchType.EAGER)
 	Collection<Contenu> fil;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy="abonnements", fetch = FetchType.EAGER)
 	Collection<Utilisateur> abonnes;
-	
-	public Collection<Contenu> getFil() {
-		return fil;
-	}
-
-	public void setFil(Collection<Contenu> fil) {
-		this.fil = fil;
-	}
-	
-	public Collection<Utilisateur> getAbonnes() {
-		return abonnes;
-	}
-
-	public void setAbonnes(Collection<Utilisateur> abonnes) {
-		this.abonnes = abonnes;
-	}
-
-	public void setTags(Collection<Tag> tags) {
-		this.tags = tags;
-	}
 	
 	public Chat() {
 	}
@@ -94,6 +76,26 @@ public class Chat {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public Collection<Contenu> getFil() {
+		return fil;
+	}
+
+	public void setFil(Collection<Contenu> fil) {
+		this.fil = fil;
+	}
+	
+	public Collection<Utilisateur> getAbonnes() {
+		return abonnes;
+	}
+
+	public void setAbonnes(Collection<Utilisateur> abonnes) {
+		this.abonnes = abonnes;
+	}
+
+	public void setTags(Collection<Tag> tags) {
+		this.tags = tags;
+	}
 
 	public int getLikes() {
 		return likes;
@@ -109,6 +111,14 @@ public class Chat {
 
 	public void setProprietaire(Createur proprietaire) {
 		this.proprietaire = proprietaire;
+	}
+
+	public int getPrix() {
+		return prix;
+	}
+
+	public void setPrix(int prix) {
+		this.prix = prix;
 	}
 	
 }

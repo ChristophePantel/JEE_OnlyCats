@@ -10,16 +10,16 @@ import javax.persistence.ManyToMany;
 public class Utilisateur extends Profil {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	Collection<Chat> abonnements;
+	Collection<Abonnement> abonnements;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	Collection<Contenu> liens;
 
-	public Collection<Chat> getAbonnements() {
+	public Collection<Abonnement> getAbonnements() {
 		return abonnements;
 	}
 
-	public void setAbonnements(Collection<Chat> abonnements) {
+	public void setAbonnements(Collection<Abonnement> abonnements) {
 		this.abonnements = abonnements;
 	}
 	

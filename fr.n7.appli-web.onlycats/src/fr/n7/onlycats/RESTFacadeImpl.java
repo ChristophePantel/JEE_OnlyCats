@@ -46,8 +46,8 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@POST
 	@Consumes("text/json")
 	@Path("ajouterChat")
-	public void ajouterChat(String nom, int idUtilisateur) {
-		facade.ajouterChat(nom, idUtilisateur);
+	public void ajouterChat(String nom, String description, int prix, int idCreateur) {
+		facade.ajouterChat(nom, description, prix, idCreateur);
 	}
 
 	@Override

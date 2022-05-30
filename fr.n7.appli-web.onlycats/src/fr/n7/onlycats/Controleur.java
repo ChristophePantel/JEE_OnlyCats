@@ -47,8 +47,20 @@ public class Controleur extends HttpServlet {
 				Profil profil = facade.utilisateurParPseudo(pseudo, motDePasse);
 				if (profil != null) {
 					session.setAttribute("profil", profil);
+					if (profil instanceof Createur) {
+						request.setAttribute("createur", (Createur)profil);
+						request.getRequestDispatcher("createur.jsp").forward(request, response);
+					} else {
+						if (profil instanceof Utilisateur) {
+							request.setAttribute("utilisateur", (Utilisateur)profil);
+							request.getRequestDispatcher("utilisateur.jsp").forward(request, response);
+						} else {
+							request.getRequestDispatcher("index.html").forward(request, response);
+						}
+					}
+				} else {
+					request.getRequestDispatcher("index.html").forward(request, response);
 				}
-				request.getRequestDispatcher("index.html").forward(request, response);
 				break;
 			}
 			case "deconnecter": {

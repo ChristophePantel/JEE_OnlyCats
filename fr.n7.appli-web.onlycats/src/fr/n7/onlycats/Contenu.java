@@ -19,6 +19,8 @@ public abstract class Contenu {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int identificateur;
 	
+	String titre;
+	
 	@ManyToOne
 	Chat sujet;
 	
@@ -54,6 +56,30 @@ public abstract class Contenu {
 
 	public void setLikes(int likes) {
 		this.likes = likes;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public Collection<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Collection<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }

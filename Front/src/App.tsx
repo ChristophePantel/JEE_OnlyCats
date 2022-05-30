@@ -5,7 +5,7 @@ import SignIn from './screens/Sign-in';
 import SignUp from './screens/Sign-up';
 import Profile from './screens/Profile';
 import Post from './screens/Post';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Suggestions from './components/suggestions';
 import Bookmarks from './screens/Bookmarks';
@@ -13,6 +13,26 @@ import Subscriptions from './screens/Subscriptions';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
+    useEffect(() => {
+        async function getStuffs() {
+            const res = await fetch('http://localhost:8080/api/projects/Profil', {
+                method: 'post',
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify({
+                    adresse: 'henisoula@gmail.com',
+                    motDePasse: 'smongler',
+                    nom: 'Soula',
+                    prenom: 'Heni',
+                    pseudo: 'Heptis',
+                }),
+            });
+            if (res.ok) {
+                console.log(await res.json());
+            }
+        }
+
+        getStuffs();
+    }, []);
     return (
         <>
             {!isLoggedIn && (

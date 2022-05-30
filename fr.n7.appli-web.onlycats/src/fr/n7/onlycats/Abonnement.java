@@ -23,8 +23,6 @@ public class Abonnement {
 	Chat chat;
 	
 	Date date;
-	
-	int cagnotte;
 
 	public Utilisateur getAbonne() {
 		return abonne;
@@ -49,13 +47,4 @@ public class Abonnement {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
-	public int getCagnotte() {
-		return cagnotte;
-	}
-
-	public void setCagnotte(int cagnotte) {
-		this.cagnotte = cagnotte;
-	}
-
 }

@@ -5,11 +5,12 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Utilisateur extends Profil {
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="abonne", fetch = FetchType.EAGER)
 	Collection<Abonnement> abonnements;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

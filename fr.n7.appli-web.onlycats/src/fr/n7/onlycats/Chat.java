@@ -26,12 +26,24 @@ public class Chat {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int identificateur;
 	
+	/**
+	 * Nom du chat
+	 */
 	String nom;
 	
+	/**
+	 * 
+	 */
 	String description;
 	
+	/**
+	 * 
+	 */
 	int likes;
 	
+	/**
+	 * 
+	 */
 	int prix;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -43,8 +55,8 @@ public class Chat {
 	@OneToMany(mappedBy="sujet", fetch = FetchType.EAGER)
 	Collection<Contenu> fil;
 	
-	@ManyToMany(mappedBy="abonnements", fetch = FetchType.EAGER)
-	Collection<Utilisateur> abonnes;
+	@OneToMany(mappedBy="chat", fetch = FetchType.EAGER)
+	Collection<Abonnement> abonnes;
 	
 	public Chat() {
 	}
@@ -85,11 +97,11 @@ public class Chat {
 		this.fil = fil;
 	}
 	
-	public Collection<Utilisateur> getAbonnes() {
+	public Collection<Abonnement> getAbonnes() {
 		return abonnes;
 	}
 
-	public void setAbonnes(Collection<Utilisateur> abonnes) {
+	public void setAbonnes(Collection<Abonnement> abonnes) {
 		this.abonnes = abonnes;
 	}
 
@@ -119,6 +131,14 @@ public class Chat {
 
 	public void setPrix(int prix) {
 		this.prix = prix;
+	}
+	
+	synchronized boolean accepter(Utilisateur abonne) {
+		boolean resultat = abonne.prelever(this.getPrix());
+		if (resultat) {
+			this.getProprietaire().verser(this.getPrix());
+		} 
+		return resultat;
 	}
 	
 }

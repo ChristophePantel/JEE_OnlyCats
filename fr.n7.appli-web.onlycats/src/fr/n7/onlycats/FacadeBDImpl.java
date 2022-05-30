@@ -107,7 +107,11 @@ public class FacadeBDImpl implements FacadeBD {
 	public void abonnerChat(int idUtilisateur, int idChat) {
 		Chat chat = entityManager.find(Chat.class, idChat);
 		Utilisateur utilisateur = entityManager.find(Utilisateur.class, idUtilisateur);
-		chat.getAbonnes().add(utilisateur);
+		if (chat.accepter(utilisateur)) {
+			Abonnement abonnement = new Abonnement();
+			abonnement.setChat(chat);
+			abonnement.setAbonne(utilisateur);
+		}
 	}
 
 	@Override

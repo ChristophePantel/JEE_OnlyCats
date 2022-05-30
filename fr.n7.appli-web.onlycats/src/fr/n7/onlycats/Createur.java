@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
 public class Createur extends Profil {
 	
 	// Liste des chats
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="proprietaire", fetch = FetchType.EAGER)
 	Collection<Chat> chats;
 
 	public Collection<Chat> getChats() {

@@ -35,6 +35,8 @@
 				}
 				%>
 				</ul>
+				<br/>
+				<a href ="index.html">Retour</a>
 		<%
 			}
 		%>

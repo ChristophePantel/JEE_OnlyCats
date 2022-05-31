@@ -12,6 +12,9 @@
 		Collection<Createur> createurs = (Collection<Createur>) request.getAttribute("createurs"); 
 			if (createurs == null) {
 				System.err.println("Le paramètres créateurs n'a pas été transmis.");
+			%>
+				<a href ="index.html">Retour</a>
+			<%
 			} else {
 		%>
 				Créateurs : </br>

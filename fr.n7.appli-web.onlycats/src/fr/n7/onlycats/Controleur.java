@@ -104,6 +104,12 @@ public class Controleur extends HttpServlet {
 				request.getRequestDispatcher("listerUtilisateurs.jsp").forward(request, response);
 				break;
 			}
+			case "listerChats": {
+				Collection<Chat> chats = facade.listerChats();
+				request.setAttribute("chats", chats);
+				request.getRequestDispatcher("listerChats.jsp").forward(request, response);
+				break;
+			}
 			case "ajouterChat": {
 				Profil profil = (Profil) session.getAttribute("profil");
 				if (profil == null) {

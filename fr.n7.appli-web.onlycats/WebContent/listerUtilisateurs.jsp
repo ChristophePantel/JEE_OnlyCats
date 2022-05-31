@@ -12,6 +12,9 @@
 		Collection<Utilisateur> utilisateurs = (Collection<Utilisateur>) request.getAttribute("utilisateurs"); 
 			if (utilisateurs == null) {
 				System.err.println("Le paramètres utilisateurs n'a pas été transmis.");
+			%>
+				<a href ="index.html">Retour</a>
+			<%
 			} else {
 		%>
 				Utilisateurs : </br>

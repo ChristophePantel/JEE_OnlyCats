@@ -26,17 +26,26 @@ public class FacadeBDImpl implements FacadeBD {
 	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
 			boolean nature) {
 		Profil profil = null;
-		if (nature) {
-			profil = new Createur();
+		String query = "select p from Profil p where pseudo = \'" + pseudo + "\'";
+		System.err.println(query);
+		TypedQuery<Profil> requete = entityManager.createQuery(
+				query,
+				Profil.class);
+		if (requete.getResultList().size() == 0) {
+			if (nature) {
+				profil = new Createur();
+			} else {
+				profil = new Utilisateur();
+			}
+			profil.setPrenom(prenom);
+			profil.setNom(nom);
+			profil.setPseudo(pseudo);
+			profil.setAdresse(adresse);
+			profil.setMotDePasse(motPasse);
+			entityManager.persist(profil);
 		} else {
-			profil = new Utilisateur();
+//			throw new IllegalParameterException();
 		}
-		profil.setPrenom(prenom);
-		profil.setNom(nom);
-		profil.setPseudo(pseudo);
-		profil.setAdresse(adresse);
-		profil.setMotDePasse(motPasse);
-		entityManager.persist(profil);
 	}
 
 	@Override

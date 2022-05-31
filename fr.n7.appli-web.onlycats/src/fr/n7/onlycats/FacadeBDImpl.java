@@ -53,8 +53,8 @@ public class FacadeBDImpl implements FacadeBD {
 		chat.setNom(nom);
 		chat.setDescription(description);
 		chat.setPrix(prix);
+		chat.setProprietaire(createur);
 		entityManager.persist(chat);
-		createur.getChats().add(chat);
 	}
 
 	@Override
@@ -168,6 +168,16 @@ public class FacadeBDImpl implements FacadeBD {
 	public Collection<Createur> listerCreateurs() {
 		return entityManager.createQuery("from Createur", Createur.class).getResultList();
 	}
+	
+	@Override
+	public Collection<Chat> listerChats() {
+		return entityManager.createQuery("from Chat", Chat.class).getResultList();
+	}
+
+	@Override
+	public Collection<Abonnement> listerAbonnements() {
+		return entityManager.createQuery("from Abonnement", Abonnement.class).getResultList();
+	}
 
 	@Override
 	public void ajouterLien(int idUtilisateur, int idContenu) {
@@ -270,4 +280,5 @@ public class FacadeBDImpl implements FacadeBD {
 			}
 		}
 	}
+
 }

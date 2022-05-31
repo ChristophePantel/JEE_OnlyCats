@@ -108,6 +108,10 @@ public interface Facade {
 	 */
 	public Collection<Createur> listerCreateurs();
 	
+	public Collection<Chat> listerChats();
+	
+	public Collection<Abonnement> listerAbonnements();
+	
 	/**
 	 * Obtient un profil à partir de son pseudo et son mot de passe.
 	 * @param pseudo : Pseudo enregistré pour l'utilisateur

@@ -162,4 +162,18 @@ public class RESTFacadeImpl implements RemoteFacade {
 		facade.tester();
 	}
 
+	@Override
+	@GET
+	@Produces("text/json")
+	public Collection<Chat> listerChats() {
+		return facade.listerChats();
+	}
+
+	@Override
+	@GET
+	@Produces("text/json")
+	public Collection<Abonnement> listerAbonnements() {
+		return facade.listerAbonnements();
+	}
+
 }

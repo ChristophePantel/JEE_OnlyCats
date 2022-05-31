@@ -3,42 +3,44 @@ import Post from '../components/post';
 import { postType } from '../types/post.type';
 
 const data: postType = {
-    profile: {
-        name: 'Heni Soula',
-        id: '1',
+    id: 1,
+    cat: {
+        id: 1,
+        image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        name: 'test cat',
     },
-    post: {
-        text: 'This is a post',
-        image: 'https://picsum.photos/300/300',
-        likes: [
-            {
-                profileId: '1',
-            },
-        ],
-        comment: [
-            {
-                profile: {
-                    name: 'Heni Soula',
-                    id: '1',
-                },
-                text: 'hello from pakistan',
-                id: '1',
-            },
-            {
-                profile: {
-                    name: 'Ghaith Oueslati',
-                    id: '2',
-                },
-                text: 'hello from pakistan',
-                id: '2',
-            },
-        ],
+    image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+    user: {
+        id: 1,
+        username: 'test',
     },
-    id: '1',
+    text: 'hello from pakistan',
+    comments: [
+        {
+            id: 1,
+            account: {
+                id: 1,
+                username: 'test',
+            },
+            id_post: 1,
+            text: 'hello from pakistan',
+        },
+        {
+            id: 2,
+            account: {
+                id: 1,
+                username: 'test',
+            },
+            id_post: 1,
+            text: 'hello from pakistan',
+        },
+    ],
+    likes: [],
+    bookmarkers: [],
 };
 
 export default function PostPage() {
     const { id } = useParams();
     // todo: get post from server using id
-    return <Post data={data} displayComments={true} />;
+    return <Post post={data} displayComments={true} />;
 }

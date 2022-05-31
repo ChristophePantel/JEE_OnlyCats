@@ -1,70 +1,48 @@
-import { useParams } from 'react-router-dom';
-import { ProfileType } from '../types/profile.type';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { AccountType } from '../types/account.type';
 import { generateAvatar } from '../utils/generate-avatar';
 import { CurrencyDollarIcon, PlusSmIcon } from '@heroicons/react/outline';
 import { postType } from '../types/post.type';
 import Post from '../components/post';
+import { useEffect, useState } from 'react';
+import { getProfileById } from '../api/get-profile-by-id';
 
-const profile: ProfileType = {
-    name: 'Heni Soula',
-    id: '1',
-};
-
-const posts: postType[] = [
-    {
-        profile: {
-            name: 'Heni Soula',
-            id: '1',
-        },
-        post: {
-            text: 'This is a post',
-            image: 'https://picsum.photos/300/300',
-            likes: [
-                {
-                    profileId: '1',
-                },
-                {
-                    profileId: '2',
-                },
-            ],
-            comment: [
-                {
-                    profile: {
-                        name: 'Heni Soula',
-                        id: '1',
-                    },
-                    text: 'hello from pakistan',
-                    id: '1',
-                },
-                {
-                    profile: {
-                        name: 'Ghaith Oueslati',
-                        id: '2',
-                    },
-                    text: 'hello from pakistan',
-                    id: '2',
-                },
-            ],
-        },
-        id: '1',
-    },
-];
-
-export default function Profile() {
+const Profile: React.FC = (props) => {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const [profile, setProfile] = useState<AccountType | null>(null);
+
+    useEffect(() => {
+        async function get() {
+            const result = await getProfileById(id!);
+            if (result === null) {
+                navigate(-1);
+            } else {
+                setProfile(result);
+            }
+        }
+        get();
+    }, [id]);
+
     const avatar = generateAvatar(id!);
     const getLikes = () => {
-        return posts.reduce((acc, post) => {
-            return acc + post.post.likes.length;
-        }, 0);
+        return profile ? profile.cats?.map((c) => c.posts.map((p) => p.likes.length)).flat().length : 0;
+    };
+
+    const getPostsNumber = () => {
+        return profile ? profile.cats?.map((c) => c.posts.length).flat().length : 0;
+    };
+
+    const getPosts = () => {
+        return profile && profile.cats ? profile.cats.map((c) => c.posts).flat() : [];
     };
 
     return (
         <div className="flex w-full flex-col items-center gap-5">
             <div className="h-20 w-full bg-gray-200" />
             <img alt="avatar" src={avatar} className="h-20 w-20 -translate-y-14 rounded-full border" />
-            <p className="-translate-y-14 font-semibold">{profile.name}</p>
-            <div className="flex -translate-y-14 flex-row gap-4">
+            <p className="-translate-y-14 font-semibold">{profile?.username}</p>
+            {/* <div className="flex -translate-y-14 flex-row gap-4">
                 <button className="flex flex-row items-center gap-2 rounded-lg bg-blue-400 py-2 px-4 font-bold text-white">
                     <PlusSmIcon className="h-5 w-5" />
                     <p>Subscribe</p>
@@ -73,11 +51,23 @@ export default function Profile() {
                     <CurrencyDollarIcon className="h-5 w-5" />
                     <p>Donate</p>
                 </button>
+            </div> */}
+            <div className="flex w-full -translate-y-14 flex-row flex-wrap justify-around gap-2">
+                {profile && profile.cats && profile.cats.length ? (
+                    profile.cats.map((cat) => (
+                        <Link to={`/cat/${cat.id}`} className="flex cursor-pointer flex-col items-center">
+                            <img src={cat.image} alt="cat" className="h-10 w-10 rounded-full" />
+                            <p className="text-sm font-normal">{cat.name}</p>
+                        </Link>
+                    ))
+                ) : (
+                    <p className="text-sm font-normal text-gray-500">No cats</p>
+                )}
             </div>
             <div className="flex -translate-y-14 flex-row gap-4">
                 <div className="flex flex-col items-center">
                     <p className="text-xs">Posts</p>
-                    <p className="font-bold">{posts.length}</p>
+                    <p className="font-bold">{getPostsNumber()}</p>
                 </div>
                 <div className="flex flex-col items-center">
                     <p className="text-xs">Likes</p>
@@ -85,11 +75,13 @@ export default function Profile() {
                 </div>
             </div>
             <hr className="w-full -translate-y-14" />
-            <div className="flex -translate-y-14 flex-col">
-                {posts.map((post) => (
-                    <Post key={post.id} data={post} displayComments={false} />
+            <div className="flex w-full -translate-y-14 flex-col">
+                {getPosts().map((post) => (
+                    <Post key={post.id} post={post} displayComments={false} />
                 ))}
             </div>
         </div>
     );
-}
+};
+
+export default Profile;

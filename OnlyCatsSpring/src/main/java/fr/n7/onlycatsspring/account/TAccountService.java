@@ -1,6 +1,8 @@
 package fr.n7.onlycatsspring.account;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +15,16 @@ public class TAccountService {
         this.ar = ar;
     }
 
-    public void addAccount(TAccount newAccount) {
-        ar.save(newAccount);
+    public TAccount addAccount(TAccount newAccount) {
+        return ar.save(newAccount);
+    }
+
+    public TAccount findByEmailAndPassword(String email, String password) {
+        return ar.findByEmailAndPassword(email, password) ;
+    }
+
+    public TAccount findById(Integer id) {
+        return ar.findById(id);
     }
 
 }

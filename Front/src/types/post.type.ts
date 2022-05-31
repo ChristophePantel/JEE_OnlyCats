@@ -1,22 +1,22 @@
-import { ProfileType } from './profile.type';
+import { AccountType } from "./account.type";
+import { CatType } from "./cat.type";
+import { CommentType } from "./comment.type";
+import { LikeType } from "./like.type";
 
 export type postType = {
-    profile: ProfileType;
-    post: {
-        text?: string;
-        image?: string;
-        likes: likeType[];
-        comment: commentType[];
+    id: number;
+    cat: {
+        id: CatType["id"]
+        name: CatType["name"],
+        image: CatType["image"]
     };
-    id: string;
-};
-
-export type commentType = {
-    profile: ProfileType;
+    user: {
+        username: AccountType["username"],
+        id: AccountType["id"]
+    }
     text: string;
-    id: string;
-};
-
-export type likeType = {
-    profileId: ProfileType['id'];
-};
+    image?: string;
+    comments: CommentType[]
+    likes: LikeType[]
+    bookmarkers: AccountType[]
+}

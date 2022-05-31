@@ -1,6 +1,7 @@
 package fr.n7.onlycatsspring.cat;
 
 import fr.n7.onlycatsspring.account.TAccount;
+import fr.n7.onlycatsspring.post.TPost;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,9 +21,21 @@ public class TCat {
     @JoinColumn(name = "id_account", nullable = false)
     private TAccount owner;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "posts", nullable = false)
+    private Set<TPost> posts;
+
     @ManyToMany
     @JoinTable(name = "t_subscriptions", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "cat_id"))
     private Set<TAccount> subscribers;
+
+    public Set<TPost> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<TPost> posts) {
+        this.posts = posts;
+    }
 
     public void setSubscribers(Set<TAccount> subscribers) {
         this.subscribers = subscribers;

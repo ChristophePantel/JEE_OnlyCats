@@ -1,13 +1,14 @@
 package fr.n7.onlycatsspring.account;
 
-import fr.n7.onlycatsspring.account.TAccount;
-import fr.n7.onlycatsspring.account.TAccountService;
+import fr.n7.onlycatsspring.cat.TCat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+
 @RestController
-@RequestMapping(path= "api/projects")
+@RequestMapping(path= "account")
 @CrossOrigin(origins = "*")
 public class TAccountController {
     @Autowired
@@ -18,15 +19,22 @@ public class TAccountController {
         this.as = as;
     }
 
-    @PostMapping("/account")
-    void addAccount(@RequestBody TAccount newAccount) {
-        System.out.println(newAccount);
-        as.addAccount(newAccount);
+    @PostMapping("/create")
+    TAccount addAccount(@RequestBody TAccount newAccount) {
+        return as.addAccount(newAccount);
     }
 
-    @GetMapping("/account")
-    String test() {
-        return "baydha";
+    @PostMapping("/login")
+    TAccount loginToAccount(@RequestBody Map<String, String> body) {
+        return as.findByEmailAndPassword(body.get("email"), body.get("password"));
     }
 
+    @GetMapping("/{id}")
+    TAccount getAccountById(@PathVariable Integer id) {
+        TAccount result = as.findById(id);
+        // use this to fetch lazy fields
+        result.getCats().forEach(TCat::getPosts);
+
+        return result;
+    }
 }

@@ -14,7 +14,7 @@ const MainContent: React.FC<Props> = (props) => {
             <CreateNewPost />
             <div className="flex flex-col">
                 {props.posts.map((post) => (
-                    <Post key={post.id} data={post} displayComments={false} />
+                    <Post key={post.id} post={post} displayComments={false} />
                 ))}
                 <div className="grid w-full place-items-center py-5">
                     <LightningBoltIcon className="h-7 w-7 animate-bounce text-gray-300" />

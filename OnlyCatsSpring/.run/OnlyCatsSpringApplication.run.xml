@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="OnlyCatsSpringApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <module name="OnlyCatsSpring" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="fr.n7.onlycatsspring.OnlyCatsSpringApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

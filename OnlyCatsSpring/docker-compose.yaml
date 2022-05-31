@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  database:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "0000"
+      MYSQL_USER: "Heni"
+      MYSQL_PASSWORD: "0000"
+      MYSQL_DATABASE: "onlycatsbdd"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ~/apps/mysql:/var/lib/mysql

@@ -5,55 +5,21 @@ import Post from '../components/post';
 
 const testPosts: postType[] = [
     {
-        profile: {
-            name: 'Heni Soula',
-            id: '1',
+        id: 1,
+        cat: {
+            id: 1,
+            name: 'test cat',
+            image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
         },
-        post: {
-            text: 'This is a post',
-            image: 'https://picsum.photos/300/300',
-            likes: [
-                {
-                    profileId: '1',
-                },
-            ],
-            comment: [
-                {
-                    profile: {
-                        name: 'Heni Soula',
-                        id: '1',
-                    },
-                    text: 'hello from pakistan',
-                    id: '1',
-                },
-                {
-                    profile: {
-                        name: 'Ghaith Oueslati',
-                        id: '2',
-                    },
-                    text: 'hello from pakistan',
-                    id: '2',
-                },
-            ],
+        image: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+        user: {
+            id: 1,
+            username: 'test',
         },
-        id: '1',
-    },
-    {
-        profile: {
-            name: 'Ghaith Oueslati',
-            id: '2',
-        },
-        post: {
-            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            image: 'https://picsum.photos/500/300',
-            likes: [
-                {
-                    profileId: '2',
-                },
-            ],
-            comment: [],
-        },
-        id: '2',
+        text: 'hello from pakistan',
+        comments: [],
+        likes: [],
+        bookmarkers: [],
     },
 ];
 
@@ -63,7 +29,7 @@ export default function BookmarksPage() {
             <h1 className="border-b border-b-gray-300 p-3 text-2xl font-semibold">Bookmarks</h1>
             <div className="flex flex-col">
                 {testPosts.map((post) => (
-                    <Post key={post.id} data={post} displayComments={false} />
+                    <Post key={post.id} post={post} displayComments={false} />
                 ))}
             </div>
         </>

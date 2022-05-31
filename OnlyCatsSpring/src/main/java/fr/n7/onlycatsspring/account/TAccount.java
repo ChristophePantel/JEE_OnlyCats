@@ -17,17 +17,29 @@ public class TAccount {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cats", nullable = false)
+    private Set<TCat> cats;
 
     @ManyToMany(mappedBy = "subscribers")
     private Set<TCat> subscribed_to_cats;
 
     @ManyToMany(mappedBy = "markers")
     private Set<TPost> bookmarks;
+
+    public Set<TCat> getCats() {
+        return cats;
+    }
+
+    public void setCats(Set<TCat> cats) {
+        this.cats = cats;
+    }
 
     public void setBookmarks(Set<TPost> bookmarks) {
         this.bookmarks = bookmarks;

@@ -5,4 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TAccountRepository extends JpaRepository<TAccount, String> {
+    public TAccount findByEmailAndPassword(String email, String password);
+
+    public TAccount findById(Integer id);
 }

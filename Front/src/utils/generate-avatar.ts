@@ -1,9 +1,9 @@
 import { createAvatar } from '@dicebear/avatars';
 import * as style from '@dicebear/open-peeps';
 
-export function generateAvatar(id: string) {
+export function generateAvatar(id: number | string) {
     return createAvatar(style, {
-        seed: id,
+        seed: `${id}`,
         dataUri: true,
     });
 }

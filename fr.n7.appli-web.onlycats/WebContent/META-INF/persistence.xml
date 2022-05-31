@@ -8,8 +8,17 @@
         
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         
-        <class>annuaire.Personne</class>
-        <class>annuaire.Adresse</class>
+        <class>fr.n7.onlycats.Abonnement</class>
+        <class>fr.n7.onlycats.Chat</class>
+        <class>fr.n7.onlycats.Contenu</class>
+        <class>fr.n7.onlycats.Createur</class>
+        <class>fr.n7.onlycats.Image</class>
+        <class>fr.n7.onlycats.Message</class>
+        <class>fr.n7.onlycats.Profil</class>
+        <class>fr.n7.onlycats.Tag</class>
+        <class>fr.n7.onlycats.Texte</class>
+        <class>fr.n7.onlycats.Utilisateur</class>
+        <class>fr.n7.onlycats.Video</class>
         
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

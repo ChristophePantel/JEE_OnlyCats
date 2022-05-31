@@ -195,4 +195,62 @@ public class FacadeBDImpl implements FacadeBD {
 			contenu.setLikes(contenu.getLikes()+1);
 		}
 	}
+
+	@Override
+	public void tester() {
+		final int NBR_CREATEURS = 2;
+		final int NBR_UTILISATEURS = 4;
+		Createur createurs[] = new Createur[NBR_CREATEURS];
+		Utilisateur utilisateurs[] = new Utilisateur[NBR_UTILISATEURS];
+		Chat chats[][] = new Chat[NBR_CREATEURS][];
+		for (int i = 0; i < NBR_CREATEURS; i++) {
+			String prenom = "PN" + i;
+			String nom = "N" + i;
+			String pseudo = "P" + i;
+			String motDePasse = "mp" + i;
+			String adresse = "PN" + i + ".N" + i + "@n7.fr";
+			Createur profil = new Createur();
+			profil.setPrenom(prenom);
+			profil.setNom(nom);
+			profil.setPseudo(pseudo);
+			profil.setAdresse(adresse);
+			profil.setMotDePasse(motDePasse);
+			createurs[i] = profil;
+			entityManager.persist(profil);
+			chats[i] = new Chat[NBR_UTILISATEURS];
+			for (int j = 0; j < NBR_UTILISATEURS; j++) {
+				String nomChat = "C" + j + "_" + i;
+				String description = "Description de " + nomChat + "\n";
+				Chat chat = new Chat();
+				chat.setNom(nomChat);
+				chat.setDescription(description);
+				chat.setPrix(i+j);
+				chat.setProprietaire(profil);
+				entityManager.persist(chat);
+				chats[i][j] = chat;
+			}
+		}
+		for (int k = 0; k < NBR_UTILISATEURS; k++) {
+			int i = NBR_CREATEURS + k;
+			String prenom = "PN" + i;
+			String nom = "N" + i;
+			String pseudo = "P" + i;
+			String motDePasse = "mp" + i;
+			String adresse = "PN" + i + ".N" + i + "@n7.fr";
+			Utilisateur profil = new Utilisateur();
+			profil.setPrenom(prenom);
+			profil.setNom(nom);
+			profil.setPseudo(pseudo);
+			profil.setAdresse(adresse);
+			profil.setMotDePasse(motDePasse);
+			utilisateurs[k] = profil;
+			entityManager.persist(profil);
+			for (int j = 0; j < NBR_CREATEURS; j++) {
+				Abonnement abonnement = new Abonnement();
+				abonnement.setChat(chats[j][k]);
+				abonnement.setAbonne(profil);
+				entityManager.persist(abonnement);
+			}
+		}
+	}
 }

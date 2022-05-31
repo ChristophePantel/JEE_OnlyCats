@@ -157,4 +157,9 @@ public class RESTFacadeImpl implements RemoteFacade {
 		facade.aimerContenu(idUtilisateur, idContenu);
 	}
 
+	@Override
+	public void tester() {
+		facade.tester();
+	}
+
 }

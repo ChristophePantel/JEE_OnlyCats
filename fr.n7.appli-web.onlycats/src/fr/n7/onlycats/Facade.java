@@ -10,6 +10,8 @@ import java.util.Collection;
 
 public interface Facade {
 	
+	public void tester();
+	
 	/**
 	 * ajout d'un profil pour un utilisateur
 	 * @param prenom : prénom de l'utilisateur

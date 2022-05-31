@@ -41,6 +41,10 @@ public class Controleur extends HttpServlet {
 			HttpSession session = request.getSession();
 			response.getWriter().append("Service : " + operation);
 			switch(operation) {
+			case "tester": {
+				facade.tester();
+				request.getRequestDispatcher("index.html").forward(request, response);
+			}
 			case "connecter": {
 				String pseudo = request.getParameter("pseudo");
 				String motDePasse = request.getParameter("motDePasse");

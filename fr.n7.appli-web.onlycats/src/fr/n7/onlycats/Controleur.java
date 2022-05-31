@@ -95,10 +95,13 @@ public class Controleur extends HttpServlet {
 			case "listerCreateurs": {
 				Collection<Createur> createurs = facade.listerCreateurs();
 				request.setAttribute("createurs", createurs);
-				request.getRequestDispatcher("listerCreateur.jsp").forward(request, response);
+				request.getRequestDispatcher("listerCreateurs.jsp").forward(request, response);
 				break;
 			}
 			case "listerUtilisateurs": {
+				Collection<Utilisateur> utilisateurs = facade.listerUtilisateurs();
+				request.setAttribute("utilisateurs", utilisateurs);
+				request.getRequestDispatcher("listerUtilisateurs.jsp").forward(request, response);
 				break;
 			}
 			case "ajouterChat": {

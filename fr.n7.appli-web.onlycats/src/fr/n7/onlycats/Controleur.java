@@ -48,9 +48,9 @@ public class Controleur extends HttpServlet {
 			case "connecter": {
 				String pseudo = request.getParameter("pseudo");
 				String motDePasse = request.getParameter("motDePasse");
-				Profil profil = facade.utilisateurParPseudo(pseudo, motDePasse);
+				Profil profil = facade.authentifierUtilisateurParPseudo(pseudo, motDePasse);
 				if (profil != null) {
-					session.setAttribute("profil", profil);
+					session.setAttribute("pseudo", pseudo);
 					if (profil instanceof Createur) {
 						request.setAttribute("createur", (Createur)profil);
 						request.getRequestDispatcher("createur.jsp").forward(request, response);
@@ -68,7 +68,7 @@ public class Controleur extends HttpServlet {
 				break;
 			}
 			case "deconnecter": {
-				session.removeAttribute("profil");
+				session.removeAttribute("pseudo");
 				request.getRequestDispatcher("index.html").forward(request, response);
 				break;
 			}
@@ -111,15 +111,17 @@ public class Controleur extends HttpServlet {
 				break;
 			}
 			case "ajouterChat": {
-				Profil profil = (Profil) session.getAttribute("profil");
-				if (profil == null) {
+				String pseudo = (String) session.getAttribute("pseudo");
+				if (pseudo == null) {
 					request.getRequestDispatcher("connecter.html").forward(request, response);
 				} else {
+					Profil profil = facade.profilParPseudo(pseudo);
 					if (profil instanceof Createur) {
 						String nom = request.getParameter("nom");
 						String description = request.getParameter("description");
 						int prix = Integer.parseInt(request.getParameter("prix"));
 						facade.ajouterChat(nom, description, prix, profil.getIdentificateur());
+						profil = facade.profilParPseudo(pseudo);
 						request.setAttribute("createur", (Createur)profil);
 						request.getRequestDispatcher("createur.jsp").forward(request, response);
 					} else {

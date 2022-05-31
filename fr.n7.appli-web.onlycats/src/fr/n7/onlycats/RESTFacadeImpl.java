@@ -102,8 +102,8 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@POST
 	@Consumes("text/json")
 	@Produces("text/json")
-	public Profil utilisateurParPseudo(String pseudo, String motDePasse) {
-		return facade.utilisateurParPseudo(pseudo, motDePasse);
+	public Profil authentifierUtilisateurParPseudo(String pseudo, String motDePasse) {
+		return facade.authentifierUtilisateurParPseudo(pseudo, motDePasse);
 	}
 
 	@Override
@@ -174,6 +174,13 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@Produces("text/json")
 	public Collection<Abonnement> listerAbonnements() {
 		return facade.listerAbonnements();
+	}
+
+	@Override
+	@GET
+	@Produces("text/json")
+	public Profil profilParPseudo(String pseudo) {
+		return facade.profilParPseudo(pseudo);
 	}
 
 }

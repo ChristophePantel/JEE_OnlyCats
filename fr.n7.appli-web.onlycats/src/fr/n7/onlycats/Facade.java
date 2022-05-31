@@ -118,7 +118,9 @@ public interface Facade {
 	 * @param motDePasse : Mot de passe enregistré pour l'utilisateur
 	 * @return : Profil de l'utilisateur
 	 */
-	public Profil utilisateurParPseudo(String pseudo, String motDePasse);
+	public Profil authentifierUtilisateurParPseudo(String pseudo, String motDePasse);
+	
+	public Profil profilParPseudo(String pseudo);
 	
 	/**
 	 * Transmet l'ensemble des chats auxquels est abonné un utilisateur

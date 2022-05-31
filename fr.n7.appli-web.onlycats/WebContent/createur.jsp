@@ -25,11 +25,29 @@
 		<% 
 		for (Chat chat : createur.getChats()) { 
 		%>
-		<li> <di class="chat"> <%= chat.getNom() %> <br/> <%= chat.getDescription() %> </div> </li>
+		<li> <div class="chat"> <%= chat.getNom() %> <br/> <%= chat.getDescription() %> </div> </li>
 		<%
 		}
 		%>
 		</ol>
+	</div>
+	<div class="formulaireContenu">
+		<form action="Controleur" method="post">
+			<input type="hidden" name="operation" value="ajouterContenu">
+			Titre : <input type="text" name="titre"/>
+			<br/>
+			Texte : <input type="text" name="texte"/>
+			<br/>
+			URL (pour image ou vidéo) : <input type="text" name="url"/>
+			<br/>
+			<input type ="radio" name="nature" value="image"> Image
+			<br/>
+			<input type ="radio" name="nature" value="texte"> Texte
+			<br/>
+			<input type ="radio" name="nature" value="video"> Vidéo
+			<br/>
+			<input type="submit" value="Poster">
+		</form>
 	</div>
 	<div class="formulaireChat">
 		<form action="Controleur" method="post">

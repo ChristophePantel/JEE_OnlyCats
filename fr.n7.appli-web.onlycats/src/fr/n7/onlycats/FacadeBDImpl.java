@@ -25,13 +25,8 @@ public class FacadeBDImpl implements FacadeBD {
 	@Override
 	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
 			boolean nature) {
-		Profil profil = null;
-		String query = "select p from Profil p where pseudo = \'" + pseudo + "\'";
-		System.err.println(query);
-		TypedQuery<Profil> requete = entityManager.createQuery(
-				query,
-				Profil.class);
-		if (requete.getResultList().size() == 0) {
+		Profil profil = profilParPseudo(pseudo);
+		if (profil == null) {
 			if (nature) {
 				profil = new Createur();
 			} else {
@@ -44,7 +39,7 @@ public class FacadeBDImpl implements FacadeBD {
 			profil.setMotDePasse(motPasse);
 			entityManager.persist(profil);
 		} else {
-//			throw new IllegalParameterException();
+			throw new IllegalArgumentException();
 		}
 	}
 
@@ -138,7 +133,7 @@ public class FacadeBDImpl implements FacadeBD {
 	}
 
 	@Override
-	public Profil utilisateurParPseudo(String pseudo, String motDePasse) {
+	public Profil authentifierUtilisateurParPseudo(String pseudo, String motDePasse) {
 		String query = "select p from Profil p where pseudo = \'" + pseudo + "\' and motDePasse = \'" + motDePasse + "\'";
 		System.err.println(query);
 		TypedQuery<Profil> requete = entityManager.createQuery(
@@ -287,6 +282,21 @@ public class FacadeBDImpl implements FacadeBD {
 				abonnement.setAbonne(profil);
 				entityManager.persist(abonnement);
 			}
+		}
+	}
+
+	@Override
+	public Profil profilParPseudo(String pseudo) {
+		Profil profil = null;
+		String query = "select p from Profil p where pseudo = \'" + pseudo + "\'";
+		System.err.println(query);
+		TypedQuery<Profil> requete = entityManager.createQuery(
+				query,
+				Profil.class);
+		if (requete.getResultList().size() == 1) {
+			return requete.getSingleResult();
+		} else {
+			return null;
 		}
 	}
 

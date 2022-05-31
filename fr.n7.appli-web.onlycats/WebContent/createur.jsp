@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="onlycats.css">
 <title>Page de créateur</title>
 </head>
 <body>

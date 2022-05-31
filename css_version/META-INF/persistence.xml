@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+    xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="OnlyCats"
+        transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        
+        <class>fr.n7.onlycats.Abonnement</class>
+        <class>fr.n7.onlycats.Chat</class>
+        <class>fr.n7.onlycats.Contenu</class>
+        <class>fr.n7.onlycats.Createur</class>
+        <class>fr.n7.onlycats.Image</class>
+        <class>fr.n7.onlycats.Message</class>
+        <class>fr.n7.onlycats.Profil</class>
+        <class>fr.n7.onlycats.Tag</class>
+        <class>fr.n7.onlycats.Texte</class>
+        <class>fr.n7.onlycats.Utilisateur</class>
+        <class>fr.n7.onlycats.Video</class>
+        
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>

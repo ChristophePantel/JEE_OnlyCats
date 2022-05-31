@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="onlycats.css">
+<title>Test Ajout Profil</title>
+</head>
+<body>
+	<div class="formulaire">
+		<form action="Controleur" method=POST>
+			<input type="hidden" name="operation" value="ajouterProfil">
+			Prénom : <input type="text" name="prenom"/>
+			<br/>
+			Nom : <input type="text" name="nom"/>
+			<br/>
+			Pseudo : <input type="text" name="pseudo"/>
+			<br/>
+			Mot de passe : <input type="password" name="motDePasse"/>
+			<br/>
+			Adresse électronique : <input type="email" name="adresse"/>
+			<br/>
+			<input type ="radio" name="nature" value="createur">
+			<label for="createur">Créateur</label>
+			<input type ="radio" name="nature" value="utilisateur">
+			<label for="utilisateur">Utilisateur</label>
+			<br/>
+			<input type="submit" value="OK">		
+		</form>
+	</div>
+</body>
+</html>

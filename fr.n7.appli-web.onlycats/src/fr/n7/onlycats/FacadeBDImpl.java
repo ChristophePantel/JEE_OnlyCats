@@ -200,6 +200,7 @@ public class FacadeBDImpl implements FacadeBD {
 	public void tester() {
 		final int NBR_CREATEURS = 2;
 		final int NBR_UTILISATEURS = 4;
+		final int NBR_CONTENU = 3;
 		Createur createurs[] = new Createur[NBR_CREATEURS];
 		Utilisateur utilisateurs[] = new Utilisateur[NBR_UTILISATEURS];
 		Chat chats[][] = new Chat[NBR_CREATEURS][];
@@ -228,6 +229,20 @@ public class FacadeBDImpl implements FacadeBD {
 				chat.setProprietaire(profil);
 				entityManager.persist(chat);
 				chats[i][j] = chat;
+				for (int k = 0; k < NBR_CONTENU; k++) {
+					Image image = new Image();
+					image.setTitre("image " + i + " " + j + " " + k);
+					entityManager.persist(image);
+					Texte texte = new Texte();
+					texte.setTitre("texte " + i + " " + j + " " + k);
+					entityManager.persist(texte);
+					Video video = new Video();
+					video.setTitre("video " + i + " " + j + " " + k);
+					entityManager.persist(video);
+					chat.getFil().add(image);
+					chat.getFil().add(texte);
+					chat.getFil().add(video);
+				}
 			}
 		}
 		for (int k = 0; k < NBR_UTILISATEURS; k++) {
@@ -237,12 +252,14 @@ public class FacadeBDImpl implements FacadeBD {
 			String pseudo = "P" + i;
 			String motDePasse = "mp" + i;
 			String adresse = "PN" + i + ".N" + i + "@n7.fr";
+			int cagnotte = i;
 			Utilisateur profil = new Utilisateur();
 			profil.setPrenom(prenom);
 			profil.setNom(nom);
 			profil.setPseudo(pseudo);
 			profil.setAdresse(adresse);
 			profil.setMotDePasse(motDePasse);
+			profil.setCagnotte(cagnotte);
 			utilisateurs[k] = profil;
 			entityManager.persist(profil);
 			for (int j = 0; j < NBR_CREATEURS; j++) {

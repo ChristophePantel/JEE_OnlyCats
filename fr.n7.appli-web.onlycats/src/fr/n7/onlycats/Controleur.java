@@ -41,7 +41,7 @@ public class Controleur extends HttpServlet {
 			HttpSession session = request.getSession();
 			response.getWriter().append("Service : " + operation);
 			switch(operation) {
-			case "tester": {
+			case "initialiser": {
 				facade.tester();
 				request.getRequestDispatcher("index.html").forward(request, response);
 			}
@@ -106,11 +106,16 @@ public class Controleur extends HttpServlet {
 				if (profil == null) {
 					request.getRequestDispatcher("connecter.html").forward(request, response);
 				} else {
-					String nom = request.getParameter("nom");
-					String description = request.getParameter("description");
-					int prix = Integer.parseInt(request.getParameter("prix"));
-					facade.ajouterChat(nom, description, prix, profil.getIdentificateur());
-					request.getRequestDispatcher("index.html").forward(request, response);
+					if (profil instanceof Createur) {
+						String nom = request.getParameter("nom");
+						String description = request.getParameter("description");
+						int prix = Integer.parseInt(request.getParameter("prix"));
+						facade.ajouterChat(nom, description, prix, profil.getIdentificateur());
+						request.setAttribute("createur", (Createur)profil);
+						request.getRequestDispatcher("createur.jsp").forward(request, response);
+					} else {
+						request.getRequestDispatcher("index.html").forward(request, response);
+					}
 				}
 				break;
 			}

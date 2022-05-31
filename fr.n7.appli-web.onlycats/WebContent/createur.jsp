@@ -12,19 +12,39 @@
 	Createur createur  = (Createur) request.getAttribute("createur"); 
 	if (createur == null) {
 		System.err.println("Le paramètre créateur n'a pas été transmis.");
+		%>
+		<a href ="index.html">Retour</a>
+		<%
 	} else {
 	%>
-	Créateur : <%= createur.getPrenom() %> <%= createur.getNom() %> (<%= createur.getPseudo() %>) Cagnotte <%= createur.getCagnotte() %><br/>
+	<div class="createur">
+		Créateur : <%= createur.getPrenom() %> <%= createur.getNom() %> (<%= createur.getPseudo() %>) Cagnotte <%= createur.getCagnotte() %><br/>
+	</div>	
+	<div class="chats">
 		<ol>
 		<% 
 		for (Chat chat : createur.getChats()) { 
 		%>
-		<li> <%= chat.getNom() %> <br/> <%= chat.getDescription() %></li>
+		<li> <di class="chat"> <%= chat.getNom() %> <br/> <%= chat.getDescription() %> </div> </li>
 		<%
 		}
 		%>
 		</ol>
-		<a href ="Controleur?operation=ajouterChat">Ajouter Chat</a>
+	</div>
+	<div class="formulaireChat">
+		<form action="Controleur" method="post">
+			<input type="hidden" name="operation" value="ajouterChat">
+			Nom : <input type="text" name="nom"/>
+			<br/>
+			Description : <input type="text" name="description"/>
+			<br/>
+			Prix : <input type="text" name="prix"/>
+			<br/>
+			<input type="submit" value="Créer chat">		
+		</form>
+		<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
+		<br/>
+	</div>
 	<%
 	}
 	%>

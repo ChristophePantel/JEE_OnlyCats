@@ -141,4 +141,6 @@ public interface Facade {
 	 */
 	public Collection<Chat> chatParCreateur(int idCreateur);
 	
+	public void log(String message);
+	
 }

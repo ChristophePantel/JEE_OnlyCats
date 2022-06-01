@@ -184,4 +184,9 @@ public class RESTFacadeImpl implements RemoteFacade {
 		return facade.profilParPseudo(pseudo);
 	}
 
+	@Override
+	public void log(String message) {
+		facade.log(message);
+	}
+
 }

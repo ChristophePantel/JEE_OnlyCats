@@ -77,13 +77,14 @@ public class FacadeBDImpl implements FacadeBD {
 	public void posterTexte(int idChat, int idCreateur, String titre, String texte, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
+		log("Poster texte pour " + idChat + " par " + idCreateur);
+		if (chatConnu(createur.getChats(),chat)) {
 			Texte contenu = new Texte();
 			contenu.setTitre(titre);
 			contenu.setTexte(texte);
 			contenu.setDate(date);
+			contenu.setSujet(chat);
 			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
 		}
 	}
 
@@ -91,13 +92,14 @@ public class FacadeBDImpl implements FacadeBD {
 	public void posterImage(int idChat, int idCreateur, String titre, String url, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
+		log("Poster image pour " + idChat + " par " + idCreateur);
+		if (chatConnu(createur.getChats(),chat)) {
 			Image contenu = new Image();
 			contenu.setTitre(titre);
 			contenu.setUrl(url);
 			contenu.setDate(date);
+			contenu.setSujet(chat);
 			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
 		}
 	}
 
@@ -105,13 +107,14 @@ public class FacadeBDImpl implements FacadeBD {
 	public void posterVideo(int idChat, int idCreateur, String titre, String url, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
-		if (createur.getChats().contains(chat)) {
+		log("Poster video pour " + idChat + " par " + idCreateur);
+		if (chatConnu(createur.getChats(),chat)) {
 			Video contenu = new Video();
 			contenu.setTitre(titre);
 			contenu.setUrl(url);
 			contenu.setDate(date);
+			contenu.setSujet(chat);
 			entityManager.persist(contenu);
-			chat.getFil().add(contenu);
 		}
 	}
 
@@ -125,6 +128,24 @@ public class FacadeBDImpl implements FacadeBD {
 			abonnement.setAbonne(utilisateur);
 			entityManager.persist(abonnement);
 		}
+	}
+	
+	public boolean profilConnu(Collection<Profil> profils, Profil candidat) {
+		for (Profil profil : profils) {
+			if (candidat.getIdentificateur() == profil.getIdentificateur()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean chatConnu(Collection<Chat> chats, Chat candidat) {
+		for (Chat chat : chats) {
+			if (candidat.getIdentificateur() == chat.getIdentificateur()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -298,7 +319,7 @@ public class FacadeBDImpl implements FacadeBD {
 	public Profil profilParPseudo(String pseudo) {
 		Profil profil = null;
 		String query = "select p from Profil p where pseudo = \'" + pseudo + "\'";
-		System.err.println(query);
+		log(query);
 		TypedQuery<Profil> requete = entityManager.createQuery(
 				query,
 				Profil.class);
@@ -307,6 +328,11 @@ public class FacadeBDImpl implements FacadeBD {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public void log(String message) {
+		System.err.println(message);
 	}
 
 }

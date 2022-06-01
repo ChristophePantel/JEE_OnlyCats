@@ -37,10 +37,10 @@ public class Controleur extends HttpServlet {
 		response.getWriter().append("Servis par : ").append(request.getContextPath());
 		String operation = request.getParameter("operation");
 		if (operation == null) {
-			System.err.println("Le servlet Controleur a reçu une requête sans paramètre operation.");
+			facade.log("Le servlet Controleur a reçu une requête sans paramètre operation.");
 		} else {
 			HttpSession session = request.getSession();
-			response.getWriter().append("Service : " + operation);
+			facade.log("Controleur : " + operation);
 			switch(operation) {
 			case "initialiser": {
 				facade.tester();
@@ -53,10 +53,12 @@ public class Controleur extends HttpServlet {
 				if (profil != null) {
 					session.setAttribute("pseudo", pseudo);
 					if (profil instanceof Createur) {
+						facade.log( "Connection de " + pseudo + " un createur.");
 						request.setAttribute("createur", (Createur)profil);
 						request.getRequestDispatcher("createur.jsp").forward(request, response);
 					} else {
 						if (profil instanceof Utilisateur) {
+							facade.log( "Connection de " + pseudo + " un utilisateur.");
 							request.setAttribute("utilisateur", (Utilisateur)profil);
 							request.getRequestDispatcher("utilisateur.jsp").forward(request, response);
 						} else {
@@ -158,6 +160,7 @@ public class Controleur extends HttpServlet {
 					Profil profil = facade.profilParPseudo(pseudo);
 					if (profil instanceof Utilisateur) {
 						String idChat = request.getParameter("chat");
+						facade.log("Abonner Chat " + idChat + " " + profil.getIdentificateur());
 						if (idChat == null) {
 							int chat = Integer.parseInt(idChat);
 							facade.abonnerChat(profil.getIdentificateur(), chat);
@@ -185,6 +188,7 @@ public class Controleur extends HttpServlet {
 						String texte = null;
 						String url = null;
 						Date date = new Date();
+						facade.log("Ajouter Contenu " + idChat + " " + nature + " " + profil.getIdentificateur());
 						if ((idChat != null) && (nature != null)) {
 							int chat = Integer.parseInt( idChat );
 							switch (nature) {

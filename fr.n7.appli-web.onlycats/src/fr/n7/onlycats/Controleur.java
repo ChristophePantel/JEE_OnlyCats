@@ -2,6 +2,7 @@ package fr.n7.onlycats;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -78,6 +79,7 @@ public class Controleur extends HttpServlet {
 				String pseudo = request.getParameter("pseudo");
 				String adresse = request.getParameter("adresse");
 				String motDePasse = request.getParameter("motDePasse");
+				int cagnotte = Integer.parseInt(request.getParameter("cagnotte"));
 				String nature = request.getParameter("nature");
 				boolean createur = false;
 				switch (nature) {
@@ -88,7 +90,7 @@ public class Controleur extends HttpServlet {
 					createur = false;
 					break;
 				}
-				facade.ajouterProfil(prenom, nom, pseudo, adresse, motDePasse, createur);
+				facade.ajouterProfil(prenom, nom, pseudo, adresse, motDePasse, cagnotte, createur);
 				request.getRequestDispatcher("index.html").forward(request, response);
 				break;
 			}
@@ -121,6 +123,88 @@ public class Controleur extends HttpServlet {
 						String description = request.getParameter("description");
 						int prix = Integer.parseInt(request.getParameter("prix"));
 						facade.ajouterChat(nom, description, prix, profil.getIdentificateur());
+						profil = facade.profilParPseudo(pseudo);
+						request.setAttribute("createur", (Createur)profil);
+						request.getRequestDispatcher("createur.jsp").forward(request, response);
+					} else {
+						request.setAttribute("utilisateur", (Utilisateur)profil);
+						request.getRequestDispatcher("utilisateur.jsp").forward(request, response);
+					}
+				}
+				break;
+			}
+			case "choisirChat": {
+				String pseudo = (String) session.getAttribute("pseudo");
+				if (pseudo == null) {
+					request.getRequestDispatcher("connecter.html").forward(request, response);
+				} else {
+					Profil profil = facade.profilParPseudo(pseudo);
+					if (profil instanceof Utilisateur) {
+						Collection<Chat> chats = facade.listerChats();
+						request.setAttribute("chats", chats);
+						request.getRequestDispatcher("choisirChat.jsp").forward(request, response);
+					} else {
+						request.setAttribute("createur", (Createur)profil);
+						request.getRequestDispatcher("createur.jsp").forward(request, response);
+					}
+				}
+				break;
+			}
+			case "abonnerChat": {
+				String pseudo = (String) session.getAttribute("pseudo");
+				if (pseudo == null) {
+					request.getRequestDispatcher("connecter.html").forward(request, response);
+				} else {
+					Profil profil = facade.profilParPseudo(pseudo);
+					if (profil instanceof Utilisateur) {
+						String idChat = request.getParameter("chat");
+						if (idChat == null) {
+							int chat = Integer.parseInt(idChat);
+							facade.abonnerChat(profil.getIdentificateur(), chat);
+						}
+						profil = facade.profilParPseudo(pseudo);
+						request.setAttribute("utilisateur", (Utilisateur)profil);
+						request.getRequestDispatcher("utilisateur.jsp").forward(request, response);
+					} else {
+						request.setAttribute("createur", (Createur)profil);
+						request.getRequestDispatcher("createur.jsp").forward(request, response);
+					}
+				}
+				break;
+			}
+			case "ajouterContenu": {
+				String pseudo = (String) session.getAttribute("pseudo");
+				if (pseudo == null) {
+					request.getRequestDispatcher("connecter.html").forward(request, response);
+				} else {
+					Profil profil = facade.profilParPseudo(pseudo);
+					if (profil instanceof Createur) {
+						String idChat = request.getParameter("idChat");
+						String nature = request.getParameter("nature");
+						String titre = request.getParameter("titre");
+						String texte = null;
+						String url = null;
+						Date date = new Date();
+						if ((idChat != null) && (nature != null)) {
+							int chat = Integer.parseInt( idChat );
+							switch (nature) {
+							case "image": {
+								url = request.getParameter("url");
+								facade.posterImage(chat, profil.getIdentificateur(), titre, url, date);
+								break;
+							}
+							case "texte": {
+								texte = request.getParameter("titre");
+								facade.posterTexte(chat, profil.getIdentificateur(), titre, texte, date);
+								break;
+							}
+							case "video": {
+								url = request.getParameter("url");
+								facade.posterVideo(chat, profil.getIdentificateur(), titre, url, date);
+								break;
+							}
+							}
+						}
 						profil = facade.profilParPseudo(pseudo);
 						request.setAttribute("createur", (Createur)profil);
 						request.getRequestDispatcher("createur.jsp").forward(request, response);

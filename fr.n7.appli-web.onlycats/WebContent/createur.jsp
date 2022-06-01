@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="onlycats.css">
+<!--  <link rel="stylesheet" type="text/css" href="onlycats.css"> -->
 <title>Page de créateur</title>
 </head>
 <body>
@@ -19,36 +19,87 @@
 	%>
 	<div class="createur">
 		Créateur : <%= createur.getPrenom() %> <%= createur.getNom() %> (<%= createur.getPseudo() %>) Cagnotte <%= createur.getCagnotte() %><br/>
-	</div>	
-	<div class="chats">
-		<ol>
-		<% 
-		for (Chat chat : createur.getChats()) { 
-		%>
-		<li> <div class="chat"> <%= chat.getNom() %> <br/> <%= chat.getDescription() %> </div> </li>
-		<%
-		}
-		%>
-		</ol>
 	</div>
-	<div class="formulaireContenu">
-		<form action="Controleur" method="post">
-			<input type="hidden" name="operation" value="ajouterContenu">
-			Titre : <input type="text" name="titre"/>
-			<br/>
-			Texte : <input type="text" name="texte"/>
-			<br/>
-			URL (pour image ou vidéo) : <input type="text" name="url"/>
-			<br/>
-			<input type ="radio" name="nature" value="image"> Image
-			<br/>
-			<input type ="radio" name="nature" value="texte"> Texte
-			<br/>
-			<input type ="radio" name="nature" value="video"> Vidéo
-			<br/>
-			<input type="submit" value="Poster">
-		</form>
-	</div>
+	
+	<br/>
+	
+
+	<%
+	if (createur.getChats().size() > 0) {
+	%>
+		Mes chats :
+	
+		<div class="chats">
+			<ol>
+			<% 
+			for (Chat chat : createur.getChats()) { 
+			%>
+			<li> 
+				<div class="chat"> <%= chat.getNom() %> (<%= chat.getDescription() %>) [<%= chat.getLikes() %>]</div> 
+				<% 
+				if (chat.getAbonnes().size() > 0) {
+				%>
+				<ul>
+					<%
+					for (Abonnement abonnement : chat.getAbonnes()) {
+					%>
+						<li>
+						<div class="utilisateur"> <%= abonnement.getAbonne().getPseudo() %> </div>
+						</li>
+					<%	
+					}
+					%>
+				</ul>
+				<%
+				}
+				%>
+				
+			</li>
+			<%
+			}
+			%>
+			</ol>
+		</div>
+	
+		<br/>
+		
+		Ajout de contenu :
+		
+		<div class="formulaireContenu">
+			<form action="Controleur" method="post">
+				<input type="hidden" name="operation" value="ajouterContenu">
+				<% 
+				for (Chat chat : createur.getChats()) { 
+				%>
+					<input type="radio" name="idChat" value="<%= chat.getIdentificateur() %>"/> <%= chat.getNom() %> 
+					<br/>
+				<%
+				}
+				%>
+				Titre : <input type="text" name="titre"/>
+				<br/>
+				Texte : <input type="text" name="texte"/>
+				<br/>
+				URL (pour image ou vidéo) : <input type="text" name="url"/>
+				<br/>
+				<input type ="radio" name="nature" value="image"> Image
+				<br/>
+				<input type ="radio" name="nature" value="texte"> Texte
+				<br/>
+				<input type ="radio" name="nature" value="video"> Vidéo
+				<br/>
+				<input type="submit" value="Poster">
+			</form>
+		</div>
+		
+	<%
+	}
+	%>
+		
+	<br/>
+	
+	Ajout de chat :
+	
 	<div class="formulaireChat">
 		<form action="Controleur" method="post">
 			<input type="hidden" name="operation" value="ajouterChat">
@@ -60,9 +111,13 @@
 			<br/>
 			<input type="submit" value="Créer chat">		
 		</form>
-		<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
-		<br/>
+
 	</div>
+	
+	<br/>
+	
+	<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
+	
 	<%
 	}
 	%>

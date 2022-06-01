@@ -4,6 +4,7 @@
 package fr.n7.onlycats;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -29,9 +30,9 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@POST
 	@Consumes("text/json")
 	@Path("ajouterProfil")
-	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
+	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse, int cagnotte,
 			boolean nature) {
-		facade.ajouterProfil(prenom, nom, pseudo, adresse, motPasse, nature);
+		facade.ajouterProfil(prenom, nom, pseudo, adresse, motPasse, cagnotte, nature);
 	}
 
 	@Override
@@ -62,24 +63,24 @@ public class RESTFacadeImpl implements RemoteFacade {
 	@POST
 	@Consumes("text/json")
 	@Path("posterTexte")
-	public void posterTexte(int idChat, int idCreateur, String texte) {
-		facade.posterTexte(idChat, idCreateur, texte);
+	public void posterTexte(int idChat, int idCreateur, String titre, String texte, Date date) {
+		facade.posterTexte(idChat, idCreateur, titre, texte, date);
 	}
 
 	@Override
 	@POST
 	@Consumes("text/json")
 	@Path("posterImage")
-	public void posterImage(int idChat, int idCreateur, String url) {
-		facade.posterImage(idChat, idCreateur, url);
+	public void posterImage(int idChat, int idCreateur, String titre, String url, Date date) {
+		facade.posterImage(idChat, idCreateur, titre, url, date);
 	}
 
 	@Override
 	@POST
 	@Consumes("text/json")
 	@Path("posterVideo")
-	public void posterVideo(int idChat, int idCreateur, String url) {
-		facade.posterVideo(idChat, idCreateur, url);
+	public void posterVideo(int idChat, int idCreateur, String titre, String url, Date date) {
+		facade.posterVideo(idChat, idCreateur, titre, url, date);
 	}
 
 	@Override

@@ -23,6 +23,10 @@ public class Abonnement {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int identificateur;
 	
+	public int getIdentificateur() {
+		return identificateur;
+	}
+
 	@OneToOne
 	Utilisateur abonne;
 	
@@ -53,5 +57,14 @@ public class Abonnement {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Abonnement) {
+			return (((Abonnement)o).getIdentificateur() == this.getIdentificateur());
+		} else {
+			return false;
+		}
 	}
 }

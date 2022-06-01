@@ -1,6 +1,7 @@
 package fr.n7.onlycats;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * @author cpantel
@@ -21,7 +22,7 @@ public interface Facade {
 	 * @param motDePasse : mot de passe de l'utilisateur
 	 * @param nature : nature de l'utilisateur (créateur ou client)
 	 */
-	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motDePasse, boolean nature);
+	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motDePasse, int cagnotte, boolean nature);
 	
 	/**
 	 * Ajout d'un tag par utilisateur
@@ -50,17 +51,21 @@ public interface Facade {
 	 * Ajout d'un texte dans la liste des posts concernant un chat par un utilisateur
 	 * @param idChat : l'identifiant du chat
 	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param titre TODO
 	 * @param texte : le texte posté
+	 * @param date TODO
 	 */
-	public void posterTexte(int idChat, int idUtilisateur, String texte);
+	public void posterTexte(int idChat, int idUtilisateur, String titre, String texte, Date date);
 	
 	/**
 	 * Ajout d'une image dans la liste des posts concernant un chat par un utilisateur
 	 * @param idChat : l'identifiant du chat
 	 * @param idUtilisateur : l'identifiant de l'utilisateur
+	 * @param titre TODO
 	 * @param url : l'url de l'image postée
+	 * @param date TODO
 	 */
-	public void posterImage(int idChat, int idUtilisateur, String url);
+	public void posterImage(int idChat, int idUtilisateur, String titre, String url, Date date);
 	
 	/**
 	 * Ajout d'une vidéo dans la liste des posts concernant un chat par un utilisateur
@@ -68,7 +73,7 @@ public interface Facade {
 	 * @param idUtilisateur : l'identifiant de l'utilisateur
 	 * @param url : l'url de la vidéo postée
 	 */
-	public void posterVideo(int idChat, int idUtilisateur, String url);
+	public void posterVideo(int idChat, int idUtilisateur, String titre, String url, Date date);
 	
 	/**
 	 * Abonnement d'un utilisateur à un chat

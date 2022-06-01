@@ -7,42 +7,46 @@
 </head>
 <body>
 
-<div class="menu">
+<nav>
+<ul>
+    <li class = "deroulant">
+   		<a href="#">Application OnlyCats</a>
+		<ul class="sous">
+			<li>
+				<a href="ajouterProfil.html">Inscription</a>
+			</li>
+			
+			<li>
+				<a href="connecter.html">Connection</a>
+			</li>
 
-	<div class="entree">
-	<a href="ajouterProfil.html">Inscription</a>
-	<br/>
-	</div>
-	
-	<div class="entree">
-	<a href="connecter.html">Connection</a>
-	<br/>
-	</div>
-	
-	<div class="entree">
-	<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
-	<br/>
-	</div>
-	
-	<div class="entree">
-	<a href ="Controleur?operation=listerCreateurs">Lister Créateurs</a>
-	<br/>
-	</div>
-	
-	<div class="entree">
-	<a href ="Controleur?operation=listerUtilisateurs">Lister Utilisateurs</a>
-	<br/>
-	
-	<div class="entree">
-	<a href ="Controleur?operation=listerChats">Lister Chats</a>
-	<br/>
-	
-	<div class="entree">
-	<a href ="Controleur?operation=initialiser">Initialiser</a>
-	<br/>
-	</div>
-		
-</div>
+			<li>
+				<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
+			</li>
+		</ul>
+	</li>
+    
+	<li class="deroulant">
+		<a href="#">Tests</a>
+		<ul class="sous">
+			<li>
+				<a href ="Controleur?operation=listerCreateurs">Créateurs</a>
+			</li>
 
+			<li>
+				<a href ="Controleur?operation=listerUtilisateurs">Utilisateurs</a>
+			</li>
+      
+			<li>
+				<a href ="Controleur?operation=listerChats">Lister Chats</a>
+			</li>
+
+			<li>
+			<a href ="Controleur?operation=initialiser">Initialiser</a>
+			</li>
+		</ul>
+	</li>
+</ul>
+</nav>
 </body>
 </html>

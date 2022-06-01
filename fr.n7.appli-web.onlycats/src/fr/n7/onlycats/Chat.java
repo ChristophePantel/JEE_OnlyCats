@@ -141,4 +141,13 @@ public class Chat {
 		return resultat;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Chat) {
+			return (((Chat)o).getIdentificateur() == this.getIdentificateur());
+		} else {
+			return false;
+		}
+	}
+	
 }

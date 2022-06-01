@@ -5,6 +5,7 @@ package fr.n7.onlycats;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -23,7 +24,7 @@ public class FacadeBDImpl implements FacadeBD {
 	EntityManager entityManager;
 
 	@Override
-	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse,
+	public void ajouterProfil(String prenom, String nom, String pseudo, String adresse, String motPasse, int cagnotte, 
 			boolean nature) {
 		Profil profil = profilParPseudo(pseudo);
 		if (profil == null) {
@@ -37,6 +38,7 @@ public class FacadeBDImpl implements FacadeBD {
 			profil.setPseudo(pseudo);
 			profil.setAdresse(adresse);
 			profil.setMotDePasse(motPasse);
+			profil.setCagnotte(cagnotte);
 			entityManager.persist(profil);
 		} else {
 			throw new IllegalArgumentException();
@@ -72,36 +74,42 @@ public class FacadeBDImpl implements FacadeBD {
 	}
 
 	@Override
-	public void posterTexte(int idChat, int idCreateur, String texte) {
+	public void posterTexte(int idChat, int idCreateur, String titre, String texte, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
 		if (createur.getChats().contains(chat)) {
 			Texte contenu = new Texte();
+			contenu.setTitre(titre);
 			contenu.setTexte(texte);
+			contenu.setDate(date);
 			entityManager.persist(contenu);
 			chat.getFil().add(contenu);
 		}
 	}
 
 	@Override
-	public void posterImage(int idChat, int idCreateur, String url) {
+	public void posterImage(int idChat, int idCreateur, String titre, String url, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
 		if (createur.getChats().contains(chat)) {
 			Image contenu = new Image();
+			contenu.setTitre(titre);
 			contenu.setUrl(url);
+			contenu.setDate(date);
 			entityManager.persist(contenu);
 			chat.getFil().add(contenu);
 		}
 	}
 
 	@Override
-	public void posterVideo(int idChat, int idCreateur, String url) {
+	public void posterVideo(int idChat, int idCreateur, String titre, String url, Date date) {
 		Createur createur = entityManager.find(Createur.class, idCreateur);
 		Chat chat = entityManager.find(Chat.class, idChat);
 		if (createur.getChats().contains(chat)) {
 			Video contenu = new Video();
+			contenu.setTitre(titre);
 			contenu.setUrl(url);
+			contenu.setDate(date);
 			entityManager.persist(contenu);
 			chat.getFil().add(contenu);
 		}
@@ -115,6 +123,7 @@ public class FacadeBDImpl implements FacadeBD {
 			Abonnement abonnement = new Abonnement();
 			abonnement.setChat(chat);
 			abonnement.setAbonne(utilisateur);
+			entityManager.persist(abonnement);
 		}
 	}
 
@@ -214,7 +223,7 @@ public class FacadeBDImpl implements FacadeBD {
 	public void tester() {
 		final int NBR_CREATEURS = 2;
 		final int NBR_UTILISATEURS = 4;
-		final int NBR_CONTENU = 3;
+		final int NBR_CONTENU = 2;
 		Createur createurs[] = new Createur[NBR_CREATEURS];
 		Utilisateur utilisateurs[] = new Utilisateur[NBR_UTILISATEURS];
 		Chat chats[][] = new Chat[NBR_CREATEURS][];
@@ -245,17 +254,17 @@ public class FacadeBDImpl implements FacadeBD {
 				chats[i][j] = chat;
 				for (int k = 0; k < NBR_CONTENU; k++) {
 					Image image = new Image();
-					image.setTitre("image " + i + " " + j + " " + k);
+					image.setTitre("image_" + i + "_" + j + "_" + k);
+					image.setSujet(chat);
 					entityManager.persist(image);
 					Texte texte = new Texte();
-					texte.setTitre("texte " + i + " " + j + " " + k);
+					texte.setTitre("texte_" + i + "_" + j + "_" + k);
+					texte.setSujet(chat);
 					entityManager.persist(texte);
 					Video video = new Video();
-					video.setTitre("video " + i + " " + j + " " + k);
+					video.setTitre("video_" + i + "_" + j + "_" + k);
+					video.setSujet(chat);
 					entityManager.persist(video);
-					chat.getFil().add(image);
-					chat.getFil().add(texte);
-					chat.getFil().add(video);
 				}
 			}
 		}

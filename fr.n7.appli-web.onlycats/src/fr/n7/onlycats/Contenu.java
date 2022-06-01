@@ -82,4 +82,17 @@ public abstract class Contenu {
 		this.date = date;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Contenu) {
+			return (((Contenu)o).getIdentificateur() == this.getIdentificateur());
+		} else {
+			return false;
+		}
+	}
+
+	public int getIdentificateur() {
+		return identificateur;
+	}
+	
 }

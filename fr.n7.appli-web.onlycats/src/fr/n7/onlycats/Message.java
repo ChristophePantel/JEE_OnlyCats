@@ -15,7 +15,7 @@ public class Message {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	int idFilDiscussion;
+	int identificateur;
 	
 	@ManyToOne
 	Profil expediteur;
@@ -36,6 +36,19 @@ public class Message {
 
 	public void setTexte(String texte) {
 		this.texte = texte;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Message) {
+			return (((Message)o).getIdentificateur() == this.getIdentificateur());
+		} else {
+			return false;
+		}
+	}
+
+	public int getIdentificateur() {
+		return identificateur;
 	}
 	
 }

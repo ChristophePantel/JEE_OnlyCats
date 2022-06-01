@@ -96,4 +96,13 @@ public abstract class Profil {
 		return resultat;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Profil) {
+			return (((Profil)o).getIdentificateur() == this.getIdentificateur());
+		} else {
+			return false;
+		}
+	}
+	
 }

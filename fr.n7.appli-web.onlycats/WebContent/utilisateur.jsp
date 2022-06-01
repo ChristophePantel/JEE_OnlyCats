@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="onlycats.css">
+<!--  <link rel="stylesheet" type="text/css" href="onlycats.css"> -->
 <title>Page d'utilisateur</title>
 </head>
 <body>
@@ -15,41 +15,69 @@
 	} else {
 	%>
 	Utilisateur : <%= utilisateur.getPrenom() %> <%= utilisateur.getNom() %> (<%= utilisateur.getPseudo() %>) Cagnotte <%= utilisateur.getCagnotte() %><br/>
-		<ol>
-		<% 
-		for (Abonnement abonnement : utilisateur.getAbonnements()) { 
-			Chat chat = abonnement.getChat();
+		<%
+		if (utilisateur.getAbonnements().size() > 0) {
 		%>
-		<li> <%= chat.getNom() %> <br/> <%= chat.getDescription() %></li>
 			<ol>
-			<%
-			for (Contenu contenu : chat.getFil()) {
+			<% 
+			for (Abonnement abonnement : utilisateur.getAbonnements()) { 
+				Chat chat = abonnement.getChat();
 			%>
-			<li>
-			<%= contenu.getTitre() %>
-				<ul>
-				<%
-				for (Message message : contenu.getMessages()) {
-				%>
-				<li>
-				<%= message.getExpediteur().getPseudo() %> : <%= message.getTexte() %>
+				<li> 
+					<%= chat.getNom() %> <br/> <%= chat.getDescription() %>
+					<%
+					if (chat.getFil().size() > 0) {
+					%>
+						<ol>
+						<%
+						for (Contenu contenu : chat.getFil()) {
+						%>
+							<li>
+							<%= contenu.getTitre() %> (<%= contenu.getLikes() %>)
+							<% 
+							if (contenu.getMessages().size() > 0) {
+							%>
+								<ul>
+								<%
+								for (Message message : contenu.getMessages()) {
+								%>
+								<li>
+								<%= message.getExpediteur().getPseudo() %> : <%= message.getTexte() %>
+								</li>
+								<%
+								}
+								%>
+								</ul>
+							<%
+							}
+							%>
+							</li>
+						<%
+						}
+						%>
+						</ol>
+					<%
+					}
+					%>
 				</li>
-				<%
-				}
-				%>
-				</ul>
-			</li>
 			<%
 			}
 			%>
 			</ol>
-		<%
+		<% 
 		}
 		%>
-		</ol>
-		<a href ="Controleur?operation=ajouterChat">Ajouter Chat</a>
+		
 	<%
 	}
 	%>
+	
+	<br/>
+	
+	<a href ="Controleur?operation=choisirChat">S'abonner à un nouveau chat</a>
+	
+	<br/>
+	
+	<a href ="Controleur?operation=deconnecter">Se déconnecter</a>
 </body>
 </html>

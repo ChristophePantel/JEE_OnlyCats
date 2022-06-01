@@ -2,7 +2,7 @@ version: '3.8'
 services:
   database:
     image: mysql:latest
-    container_name: mysql
+    container_name: onlycatsbdd
     environment:
       MYSQL_ROOT_PASSWORD: "0000"
       MYSQL_USER: "Heni"

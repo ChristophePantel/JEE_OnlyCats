@@ -18,6 +18,7 @@ export interface UserState {
     signup: (params: SignUpParams) => Promise<void>;
     login: (params: LoginParams) => Promise<void>;
     logout: () => Promise<void>;
+    refetch: () => Promise<void>;
 }
 
 export const useStore = create<UserState>()(
@@ -25,7 +26,7 @@ export const useStore = create<UserState>()(
         (set, get) => ({
             user: null,
             signup: async (params: SignUpParams) => {
-                const result = await fetch(process.env.API_ENDPOINT + '/account/create', {
+                const result = await fetch(import.meta.env.VITE_API_ENDPOINT + '/account/create', {
                     method: 'POST',
                     headers: new Headers({ 'content-type': 'application/json' }),
                     body: JSON.stringify(params),
@@ -36,8 +37,7 @@ export const useStore = create<UserState>()(
                 }
             },
             login: async (params: LoginParams) => {
-                console.log(params);
-                const result = await fetch(process.env.API_ENDPOINT + '/account/login', {
+                const result = await fetch(import.meta.env.VITE_API_ENDPOINT + '/account/login', {
                     method: 'POST',
                     headers: new Headers({ 'content-type': 'application/json' }),
                     body: JSON.stringify(params),
@@ -47,7 +47,21 @@ export const useStore = create<UserState>()(
                     set({ user });
                 }
             },
-            logout: async () => {},
+            logout: async () => {
+                set({ user: null });
+            },
+            refetch: async () => {
+                const currUser = get().user;
+                const result = await fetch(import.meta.env.VITE_API_ENDPOINT + '/account/login', {
+                    method: 'POST',
+                    headers: new Headers({ 'content-type': 'application/json' }),
+                    body: JSON.stringify({ email: currUser?.email, password: currUser?.password }),
+                });
+                if (result.ok) {
+                    const user = (await result.json()) as AccountType;
+                    set({ user });
+                }
+            },
         }),
         {
             name: 'onlycats-user',

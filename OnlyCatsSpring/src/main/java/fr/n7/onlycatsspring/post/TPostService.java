@@ -1,9 +1,10 @@
 package fr.n7.onlycatsspring.post;
 
-import fr.n7.onlycatsspring.cat.TCat;
-import fr.n7.onlycatsspring.cat.TCatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class TPostService {
@@ -15,8 +16,19 @@ public class TPostService {
         this.pr = pr;
     }
 
-    public void addPost(TPost newPost) {
-        pr.save(newPost);
+    public TPost addPost(TPost newPost) {
+        return pr.save(newPost);
     }
 
+    public Set<TPost> getPostsByAccountId(Integer id) {
+        return pr.findAllByAccount_Id(id);
+    }
+
+    public Set<TPost> getPostsByCatId(Integer id) {
+        return pr.findAllByCat_Id(id);
+    }
+
+    public Optional<TPost> getById(Integer id) {
+        return pr.findById(id);
+    }
 }

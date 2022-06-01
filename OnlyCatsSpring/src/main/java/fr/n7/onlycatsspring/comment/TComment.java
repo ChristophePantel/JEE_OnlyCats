@@ -1,5 +1,7 @@
 package fr.n7.onlycatsspring.comment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fr.n7.onlycatsspring.account.TAccount;
 import fr.n7.onlycatsspring.post.TPost;
 
@@ -15,6 +17,7 @@ public class TComment {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "post", nullable = false)
+    @JsonIgnore
     private TPost post;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -57,4 +60,13 @@ public class TComment {
         this.text = text;
     }
 
+    @Override
+    public String toString() {
+        return "TComment{" +
+                "id=" + id +
+                ", post=" + post +
+                ", account=" + account +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }

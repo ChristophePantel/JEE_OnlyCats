@@ -1,5 +1,8 @@
+import { AccountType } from './account.type';
+import { postType } from './post.type';
+
 export type LikeType = {
     id: number;
-    id_post: number;
-    id_account: number;
-}
+    post: postType;
+    account: AccountType;
+};

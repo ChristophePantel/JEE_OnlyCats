@@ -1,9 +1,11 @@
 package fr.n7.onlycatsspring.comment;
 
-import fr.n7.onlycatsspring.cat.TCat;
-import fr.n7.onlycatsspring.cat.TCatRepository;
+import fr.n7.onlycatsspring.account.TAccount;
+import fr.n7.onlycatsspring.post.TPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class TCommentService {
@@ -15,8 +17,15 @@ public class TCommentService {
         this.cr = cr;
     }
 
-    public void addComment(TComment newComment) {
-        cr.save(newComment);
+    public TComment addComment(TComment newComment) {
+        return cr.save(newComment);
     }
 
+    public TComment createComment(Optional<TPost> post, TAccount account, String text) {
+        TComment comment = new TComment();
+        comment.setAccount(account);
+        post.ifPresent(comment::setPost);
+        comment.setText(text);
+        return cr.save(comment);
+    }
 }

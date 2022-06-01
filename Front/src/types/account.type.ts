@@ -1,5 +1,6 @@
-import { CatType } from "./cat.type";
-import { postType } from "./post.type";
+import { BookmarkType } from './bookmark.type';
+import { CatType } from './cat.type';
+import { SubscriptionType } from './subscription.type';
 
 export type AccountType = {
     id: number;
@@ -7,6 +8,6 @@ export type AccountType = {
     email?: string;
     password?: string;
     cats?: CatType[];
-    subsciptions?: CatType[];
-    bookmarks?: postType[]
-}
+    subs?: SubscriptionType[];
+    bookmarks?: BookmarkType[];
+};

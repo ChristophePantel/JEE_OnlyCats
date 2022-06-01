@@ -1,9 +1,13 @@
 package fr.n7.onlycatsspring.cat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fr.n7.onlycatsspring.account.TAccount;
 import fr.n7.onlycatsspring.post.TPost;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -17,37 +21,47 @@ public class TCat {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_account", nullable = false)
+    @Column(name = "image", nullable = true)
+    private String image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonIgnore
     private TAccount owner;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "posts", nullable = false)
     private Set<TPost> posts;
 
-    @ManyToMany
-    @JoinTable(name = "t_subscriptions", joinColumns = @JoinColumn(name = "account_id"), inverseJoinColumns = @JoinColumn(name = "cat_id"))
-    private Set<TAccount> subscribers;
+
 
     public Set<TPost> getPosts() {
         return posts;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setPosts(Set<TPost> posts) {
         this.posts = posts;
     }
 
-    public void setSubscribers(Set<TAccount> subscribers) {
-        this.subscribers = subscribers;
-    }
-
-    public Set<TAccount> getSubscribers() {
-        return subscribers;
-    }
-
     public Integer getId() {
         return id;
     }
+
+    public void setOwner(TAccount owner) {
+        this.owner = owner;
+    }
+
+    public TAccount getOwner() {
+        return owner;
+    }
+
 
     public void setId(Integer id) {
         this.id = id;
@@ -61,12 +75,13 @@ public class TCat {
         return name;
     }
 
-    public TAccount getOwner() {
-        return owner;
+    @Override
+    public String toString() {
+        return "TCat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", posts=" + posts +
+                '}';
     }
-
-    public void setOwner(TAccount owner) {
-        this.owner = owner;
-    }
-
 }

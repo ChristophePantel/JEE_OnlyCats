@@ -1,7 +1,10 @@
 package fr.n7.onlycatsspring.account;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import fr.n7.onlycatsspring.bookmark.TBookmark;
 import fr.n7.onlycatsspring.cat.TCat;
 import fr.n7.onlycatsspring.post.TPost;
+import fr.n7.onlycatsspring.subscriptions.TSubscription;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -23,15 +26,14 @@ public class TAccount {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cats", nullable = false)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private Set<TCat> cats;
 
-    @ManyToMany(mappedBy = "subscribers")
-    private Set<TCat> subscribed_to_cats;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+    private Set<TSubscription> subs;
 
-    @ManyToMany(mappedBy = "markers")
-    private Set<TPost> bookmarks;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+    private Set<TBookmark> bookmarks;
 
     public Set<TCat> getCats() {
         return cats;
@@ -41,20 +43,12 @@ public class TAccount {
         this.cats = cats;
     }
 
-    public void setBookmarks(Set<TPost> bookmarks) {
+    public void setBookmarks(Set<TBookmark> bookmarks) {
         this.bookmarks = bookmarks;
     }
 
-    public Set<TPost> getBookmarks() {
+    public Set<TBookmark> getBookmarks() {
         return bookmarks;
-    }
-
-    public Set<TCat> getSubscribed_to_cats() {
-        return subscribed_to_cats;
-    }
-
-    public void setSubscribed_to_cats(Set<TCat> subscribed_to_cats) {
-        this.subscribed_to_cats = subscribed_to_cats;
     }
 
     public Integer getId() {
@@ -77,6 +71,14 @@ public class TAccount {
         return email;
     }
 
+    public Set<TSubscription> getSubs() {
+        return subs;
+    }
+
+    public void setSubs(Set<TSubscription> subs) {
+        this.subs = subs;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -89,4 +91,13 @@ public class TAccount {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "TAccount{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

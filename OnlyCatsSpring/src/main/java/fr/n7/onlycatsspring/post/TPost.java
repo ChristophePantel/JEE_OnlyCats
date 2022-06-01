@@ -1,7 +1,10 @@
 package fr.n7.onlycatsspring.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.n7.onlycatsspring.account.TAccount;
 import fr.n7.onlycatsspring.cat.TCat;
+import fr.n7.onlycatsspring.comment.TComment;
+import fr.n7.onlycatsspring.like.TLike;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,19 +17,25 @@ public class TPost {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_cat", nullable = false)
     private TCat cat;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_account", nullable = false)
     private TAccount account;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post")
+    private Set<TLike> likes;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post")
+    private Set<TComment> comments;
+
     @Lob
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = true)
     private String text;
 
-    @Column(name = "image", nullable = false)
+    @Column(name = "image", nullable = true)
     private String image;
 
     @ManyToMany
@@ -57,8 +66,20 @@ public class TPost {
         return cat;
     }
 
-    public void setCatName(TCat cat) {
-        this.cat = cat;
+    public Set<TComment> getComments() {
+        return comments;
+    }
+
+    public Set<TLike> getLikes() {
+        return likes;
+    }
+
+    public void setComments(Set<TComment> comments) {
+        this.comments = comments;
+    }
+
+    public void setLikes(Set<TLike> likes) {
+        this.likes = likes;
     }
 
     public TAccount getAccount() {
@@ -85,4 +106,15 @@ public class TPost {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "TPost{" +
+                "id=" + id +
+                ", cat=" + cat +
+                ", account=" + account +
+                ", text='" + text + '\'' +
+                ", image='" + image + '\'' +
+                ", markers=" + markers +
+                '}';
+    }
 }

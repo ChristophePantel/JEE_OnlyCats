@@ -6,37 +6,54 @@ import { postType } from '../types/post.type';
 import Post from '../components/post';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '../api/get-profile-by-id';
+import { useStore } from '../context/user.store';
+import CreateNewCat from '../components/create-new-cat';
+import PlaceholderCatIcon from '../assets/cat.png';
+import { getPostsByAccount } from '../api/get-posts-by-account';
 
 const Profile: React.FC = (props) => {
-    const { id } = useParams();
     const navigate = useNavigate();
+
+    const { id } = useParams();
+    const user = useStore((state) => state.user);
+
     const [profile, setProfile] = useState<AccountType | null>(null);
+    const [posts, setPosts] = useState<postType[]>([]);
 
     useEffect(() => {
-        async function get() {
+        async function getProfile() {
             const result = await getProfileById(id!);
             if (result === null) {
-                navigate(-1);
+                // navigate(-1);
             } else {
                 setProfile(result);
             }
         }
-        get();
+        getProfile();
+    }, [id]);
+
+    useEffect(() => {
+        async function getPosts() {
+            const result = await getPostsByAccount(id!);
+            if (result === null) {
+                // navigate(-1);
+            } else {
+                setPosts(result);
+            }
+        }
+        getPosts();
     }, [id]);
 
     const avatar = generateAvatar(id!);
     const getLikes = () => {
-        return profile ? profile.cats?.map((c) => c.posts.map((p) => p.likes.length)).flat().length : 0;
+        return posts ? posts.map((p) => p.likes).flat().length : 0;
     };
 
     const getPostsNumber = () => {
-        return profile ? profile.cats?.map((c) => c.posts.length).flat().length : 0;
+        return posts ? posts.length : 0;
     };
-
-    const getPosts = () => {
-        return profile && profile.cats ? profile.cats.map((c) => c.posts).flat() : [];
-    };
-
+    console.log(profile);
+    console.log(posts);
     return (
         <div className="flex w-full flex-col items-center gap-5">
             <div className="h-20 w-full bg-gray-200" />
@@ -54,16 +71,28 @@ const Profile: React.FC = (props) => {
             </div> */}
             <div className="flex w-full -translate-y-14 flex-row flex-wrap justify-around gap-2">
                 {profile && profile.cats && profile.cats.length ? (
-                    profile.cats.map((cat) => (
-                        <Link to={`/cat/${cat.id}`} className="flex cursor-pointer flex-col items-center">
-                            <img src={cat.image} alt="cat" className="h-10 w-10 rounded-full" />
-                            <p className="text-sm font-normal">{cat.name}</p>
-                        </Link>
-                    ))
+                    profile.cats.map((cat) => {
+                        const catAvatar = cat.image ?? PlaceholderCatIcon;
+                        return (
+                            <Link
+                                key={cat.id}
+                                to={`/cat/${cat.id}`}
+                                className="flex cursor-pointer flex-col items-center"
+                            >
+                                <img src={catAvatar} alt="cat" className="h-10 w-10 rounded-full" />
+                                <p className="text-sm font-normal">{cat.name}</p>
+                            </Link>
+                        );
+                    })
                 ) : (
                     <p className="text-sm font-normal text-gray-500">No cats</p>
                 )}
             </div>
+            {user?.id == id && (
+                <div className="-translate-y-14">
+                    <CreateNewCat />
+                </div>
+            )}
             <div className="flex -translate-y-14 flex-row gap-4">
                 <div className="flex flex-col items-center">
                     <p className="text-xs">Posts</p>
@@ -76,9 +105,9 @@ const Profile: React.FC = (props) => {
             </div>
             <hr className="w-full -translate-y-14" />
             <div className="flex w-full -translate-y-14 flex-col">
-                {getPosts().map((post) => (
-                    <Post key={post.id} post={post} displayComments={false} />
-                ))}
+                {posts.map((post) => {
+                    return <Post key={post.id} post={post} displayComments={false} />;
+                })}
             </div>
         </div>
     );

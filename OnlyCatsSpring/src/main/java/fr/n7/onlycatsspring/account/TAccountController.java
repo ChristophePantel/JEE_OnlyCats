@@ -1,10 +1,12 @@
 package fr.n7.onlycatsspring.account;
 
 import fr.n7.onlycatsspring.cat.TCat;
+import fr.n7.onlycatsspring.post.TPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -33,8 +35,10 @@ public class TAccountController {
     TAccount getAccountById(@PathVariable Integer id) {
         TAccount result = as.findById(id);
         // use this to fetch lazy fields
-        result.getCats().forEach(TCat::getPosts);
-
+        Set<TCat> cats = result.getCats();
+        cats.forEach(c -> {
+            Set<TPost> posts = c.getPosts();
+        });
         return result;
     }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TLikeRepository extends JpaRepository<TLike, Integer> {
+    TLike findByAccountIdAndPostId(Integer account_id, Integer post_id);
 }

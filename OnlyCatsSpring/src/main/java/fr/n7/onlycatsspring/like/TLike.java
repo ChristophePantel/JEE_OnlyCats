@@ -1,5 +1,6 @@
 package fr.n7.onlycatsspring.like;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.n7.onlycatsspring.account.TAccount;
 import fr.n7.onlycatsspring.post.TPost;
 
@@ -13,12 +14,13 @@ public class TLike {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_account", nullable = false)
     private TAccount account;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_post", nullable = false)
+    @JsonIgnore
     private TPost post;
 
     public Integer getId() {
@@ -45,4 +47,12 @@ public class TLike {
         this.post = post;
     }
 
+    @Override
+    public String toString() {
+        return "TLike{" +
+                "id=" + id +
+                ", account=" + account +
+                ", post=" + post +
+                '}';
+    }
 }

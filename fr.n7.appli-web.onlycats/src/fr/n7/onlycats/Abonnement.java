@@ -6,6 +6,7 @@ package fr.n7.onlycats;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,10 +28,10 @@ public class Abonnement {
 		return identificateur;
 	}
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	Utilisateur abonne;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	Chat chat;
 	
 	Date date;

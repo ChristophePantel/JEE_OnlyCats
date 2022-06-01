@@ -1,6 +1,7 @@
 package fr.n7.onlycats;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class Message {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	int identificateur;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	Profil expediteur;
 	
 	String texte;
